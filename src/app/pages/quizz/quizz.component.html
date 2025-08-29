@@ -1,0 +1,45 @@
+<div
+  *ngIf="question !== undefined"
+  id="question-container"
+  class="min-h-full w-full flex flex-col justify-around items-center"
+>
+  <h1 class="text-center mt-4">{{ question }}</h1>
+  <div id="answers" class="radio-toolbar mt-8">
+    <ul class="flex flex-col flex-wrap items-center justify-center">
+      <li
+        class="mt-2 md:mt-0 md:mr-2"
+        *ngFor="let answer of answers; let i = index"
+      >
+        <input
+          type="radio"
+          name="answer"
+          [value]="answer"
+          [id]="'answer-' + i"
+          hidden
+        />
+        <label
+          class="radio_label flex text-sm font-semibold bg-gray-400 rounded-full cursor-pointer"
+          [for]="'answer-' + i"
+        >
+          {{ answer }}
+        </label>
+      </li>
+    </ul>
+  </div>
+  <div class="text-center my-8">
+    <button class="button-48 mx-auto" (click)="checkAnswer()">
+      Valider
+    </button>
+  </div>
+  <div *ngIf="questionStatus" class="question-result">
+    <h3 *ngIf="answerStatus" class="text-center mt-4">Bravo ! Bonne réponse</h3>
+    <h3 *ngIf="!answerStatus" class="text-center mt-4">
+      Dommage ! Mauvaise réponse
+    </h3>
+  </div>
+  <div class="text-center my-8">
+    <button class="button-48 mx-auto" (click)="nextQuestion()">
+      Question suivante
+    </button>
+  </div>
+</div>

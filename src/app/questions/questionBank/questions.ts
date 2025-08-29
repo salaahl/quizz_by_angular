@@ -1,5 +1,15 @@
 // Les bons relexes avant de prendre la route
 // https://www.securite-routiere.gouv.fr/les-medias/nos-quiz/le-grand-quiz-de-la-securite-routiere
+export const categoriesBank = [
+  { technical_name: 'tv_cinema', name: 'TV & Cinema' },
+  { technical_name: 'art_litterature', name: 'Litterature' },
+  { technical_name: 'musique', name: 'Musique' },
+  { technical_name: 'actu_politique', name: 'Politique' },
+  { technical_name: 'culture_generale', name: 'Culture generale' },
+  { technical_name: 'sport', name: 'Sport' },
+  { technical_name: 'jeux_videos', name: 'Jeux videos' },
+];
+
 export const securiteRoutiere = [
   {
     question_index: 0,
@@ -225,123 +235,81 @@ export const backToSchool = [
   {
     question_index: 0,
     title: 'Quelle est la racine carrée de 36 ?',
-    answers: [
-      '6',
-      '9',
-      '12',
-      '18',
-    ],
+    answers: ['6', '9', '12', '18'],
     right_answer: {
       index: 0,
-      explanation:
-        '',
+      explanation: '',
     },
     done: false,
   },
   {
     question_index: 1,
     title: 'Quel département français a pour chef-lieu Bordeaux ?',
-    answers: [
-      'Landes',
-      'Mayenne',
-      'Gironde',
-      'Ardèche',
-    ],
+    answers: ['Landes', 'Mayenne', 'Gironde', 'Ardèche'],
     right_answer: {
       index: 2,
-      explanation:
-        '',
+      explanation: '',
     },
     done: false,
   },
-  
+
   {
     question_index: 2,
-    title: 'Qu\'est pour moi le père de mon père ?',
-    answers: [
-      'Mon oncle',
-      'Mon frère',
-      'Mon neveu',
-      'Mon grand-père',
-    ],
+    title: "Qu'est pour moi le père de mon père ?",
+    answers: ['Mon oncle', 'Mon frère', 'Mon neveu', 'Mon grand-père'],
     right_answer: {
       index: 3,
-      explanation: ''
+      explanation: '',
     },
     done: false,
   },
   {
     question_index: 3,
     title: 'Combien de voleurs accompagnaient Ali Baba ?',
-    answers: [
-      '12',
-      '40',
-      '1000',
-      '10000',
-    ],
+    answers: ['12', '40', '1000', '10000'],
     right_answer: {
       index: 1,
-      explanation: ''
+      explanation: '',
     },
     done: false,
   },
   {
     question_index: 4,
     title: '-aud ou -eau ? Quel mot est mal orthographié ?',
-    answers: [
-      'Lapereau',
-      'Ruisseau',
-      'Crapeau',
-      'Manteau',
-    ],
+    answers: ['Lapereau', 'Ruisseau', 'Crapeau', 'Manteau'],
     right_answer: {
       index: 2,
-      explanation: ''
+      explanation: '',
     },
     done: false,
   },
   {
     question_index: 5,
     title: 'Lequel de ces nombres est un nombre premier ?',
-    answers: [
-      '13',
-      '25',
-      '32',
-      '33',
-    ],
+    answers: ['13', '25', '32', '33'],
     right_answer: {
       index: 0,
-      explanation: ''
+      explanation: '',
     },
     done: false,
   },
   {
     question_index: 6,
-    title: 'Combien d\'années compte-t-on dans une décennie ?',
-    answers: [
-      '1',
-      '10',
-      '12',
-      '100',
-    ],
+    title: "Combien d'années compte-t-on dans une décennie ?",
+    answers: ['1', '10', '12', '100'],
     right_answer: {
       index: 1,
-      explanation: ''
+      explanation: '',
     },
     done: false,
   },
   {
     question_index: 7,
     title: 'Lequel de ces termes est synonyme de joyeux ?',
-    answers: [
-      'Gai',
-      'Bouleversé',
-      'Désolé',
-      'Navré',
-    ],
+    answers: ['Gai', 'Bouleversé', 'Désolé', 'Navré'],
     right_answer: {
       index: 0,
-      explanation: ''
+      explanation: '',
     },
     done: false,
   },
