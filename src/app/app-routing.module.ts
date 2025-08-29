@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CategoriesComponent } from './pages/categories/categories.component';
+import { CategoryComponent } from './pages/category/category.component';
 import { QuizzComponent } from './pages/quizz/quizz.component';
 
 const routes: Routes = [
   { path: 'categories', component: CategoriesComponent },
+  { path: 'categories/:category', component: CategoryComponent },
   { path: 'categories/:category/:level', component: QuizzComponent },
   { path: '', redirectTo: 'categories', pathMatch: 'full' }, // redirection vers /categories par défaut
 ];

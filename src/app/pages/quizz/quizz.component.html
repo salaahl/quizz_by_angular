@@ -1,7 +1,7 @@
 <div
   *ngIf="question !== undefined"
   id="question-container"
-  class="min-h-full w-full flex flex-col justify-around items-center"
+  class="min-h-full w-full flex flex-col justify-between items-center"
 >
   <h1 class="text-center mt-4">{{ question }}</h1>
   <div id="answers" class="radio-toolbar mt-8">
@@ -27,19 +27,17 @@
     </ul>
   </div>
   <div class="text-center my-8">
-    <button class="button-48 mx-auto" (click)="checkAnswer()">
-      Valider
-    </button>
+    <button class="button-48 mx-auto" (click)="checkAnswer()">Valider</button>
   </div>
   <div *ngIf="questionStatus" class="question-result">
     <h3 *ngIf="answerStatus" class="text-center mt-4">Bravo ! Bonne réponse</h3>
     <h3 *ngIf="!answerStatus" class="text-center mt-4">
-      Dommage ! Mauvaise réponse
+      Dommage ! La bonne réponse est : <span class="font-bold bg-gray-400">{{ goodAnswer }}</span>
     </h3>
-  </div>
-  <div class="text-center my-8">
-    <button class="button-48 mx-auto" (click)="nextQuestion()">
-      Question suivante
-    </button>
+    <div class="text-center my-8">
+      <button class="button-48 mx-auto" (click)="nextQuestion()">
+        Question suivante
+      </button>
+    </div>
   </div>
 </div>

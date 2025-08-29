@@ -15,19 +15,13 @@ export class CategoriesComponent {
     window.innerWidth < 768
       ? categoriesBank.slice(0, 9)
       : categoriesBank.slice(0, 18);
-  difficulty: string[] = ['facile', 'moyen', 'difficile'];
 
   category_selected: string = this.categories[0].technical_name;
-  level_selected: string = 'facile';
 
   constructor(private router: Router) {}
 
-  showQuizz() {
+  showCategory() {
     // Redirige vers la page quizz avec la catégorie en paramètre
-    this.router.navigate([
-      'categories/',
-      this.category_selected,
-      this.level_selected,
-    ]);
+    this.router.navigate(['categories/', this.category_selected]);
   }
 }

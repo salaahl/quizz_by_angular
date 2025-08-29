@@ -1,10 +1,12 @@
-<div id="categories-container" class="h-full">
-  <h1 class="text-center mt-4">Lorem Ipsum</h1>
-  <p class="text-center mt-8">
-    Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit euismod
-    consectetur adipiscing elit suscipit euismod consectetur adipiscing elit
-    suscipit euismod consectetur adipiscing elit suscipit euismod
-  </p>
+<div id="categories-container" class="min-h-full w-full flex flex-col justify-between items-center">
+  <div class="header">
+    <h1 class="text-center mt-4">Lorem Ipsum</h1>
+    <p class="text-center mt-8">
+      Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit euismod
+      consectetur adipiscing elit suscipit euismod consectetur adipiscing elit
+      suscipit euismod consectetur adipiscing elit suscipit euismod
+    </p>
+  </div>
   <div id="categories" class="radio-toolbar mt-8">
     <ul class="flex flex-col flex-wrap items-center justify-center">
       <li
@@ -31,30 +33,8 @@
       </li>
     </ul>
   </div>
-  <nav class="radio-toolbar mt-4">
-    <h3 class="text-center text-sm font-semibold">Difficulté</h3>
-    <ul class="flex justify-center mt-4">
-      <li *ngFor="let level of difficulty">
-        <input
-          type="radio"
-          name="difficulty"
-          [value]="level"
-          [checked]="level_selected === level || !level_selected"
-          (change)="level_selected = level"
-          hidden
-          [id]="'difficulty-' + level"
-        />
-        <label
-          class="radio_label flex mr-1 text-sm font-semibold bg-gray-400 rounded-full cursor-pointer"
-          [for]="'difficulty-' + level"
-        >
-          {{ level }}
-        </label>
-      </li>
-    </ul>
-  </nav>
   <div class="text-center my-8">
-    <button class="button-48 mx-auto" (click)="showQuizz()">
+    <button class="button-48 mx-auto" (click)="showCategory()">
       Lancer le quizz
     </button>
   </div>
