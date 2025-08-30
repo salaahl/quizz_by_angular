@@ -18,7 +18,6 @@ export class QuizzComponent implements OnInit {
   i: number = 0;
 
   questions: any[] = [];
-
   question: string = '';
   answers: string[] = [];
   goodAnswer: string = '';

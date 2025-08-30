@@ -34,6 +34,10 @@ export class CategoryComponent implements OnInit {
 
   showQuizz() {
     // Redirige vers la page quizz avec la catégorie en paramètre
-    this.router.navigate(['categories/', this.category, this.level_selected]);
+    this.router.navigate([
+      'categories/',
+      this.route.snapshot.params['category'],
+      this.level_selected,
+    ]);
   }
 }
