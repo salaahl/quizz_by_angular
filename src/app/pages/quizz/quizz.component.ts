@@ -11,7 +11,7 @@ import { OnInit } from '@angular/core';
   styleUrls: ['./quizz.component.sass'],
 })
 export class QuizzComponent implements OnInit {
-  API_URL = 'https://quizzapi.jomoreschi.fr/api/v1/quiz?category=';
+  API_BASE_URL = 'https://opentdb.com/api.php?amount=10&';
 
   category!: string;
   level!: string;
@@ -19,6 +19,7 @@ export class QuizzComponent implements OnInit {
 
   questions: any[] = [];
   question: string = '';
+  questionType!: 'boolean' | 'multiple';
   answers: string[] = [];
   goodAnswer: string = '';
 
@@ -27,18 +28,33 @@ export class QuizzComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) {}
 
-  ngOnInit() {
-    this.route.paramMap.subscribe((params) => {
-      this.category = decodeURIComponent(params.get('category')!);
-      this.level = params.get('level')!;
-      // Ici tu peux appeler l'API avec category et level
-      fetch(this.API_URL + this.category + '&difficulty=' + this.level)
-        .then((response) => response.json())
-        .then((data) => {
-          this.questions = data.quizzes;
-          this.initializeQuestion();
-        });
-    });
+  async getQuestions() {
+    try {
+      const response = await fetch(
+        this.API_BASE_URL +
+          'category=' +
+          this.category +
+          '&difficulty=' +
+          this.level,
+      );
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP ! statut: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      // Mettre la logique de traduction ici ou dans le initializeQuestion
+
+      return data.results;
+    } catch (error) {
+      console.error('Erreur lors de la récupération des questions :', error);
+    }
+  }
+
+  decodeHtml(html: string): string {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = html;
+    return txt.value;
   }
 
   shuffleArray(array: any[]) {
@@ -49,13 +65,27 @@ export class QuizzComponent implements OnInit {
     return array;
   }
 
+  async ngOnInit() {
+    this.route.paramMap.subscribe((params) => {
+      this.category = decodeURIComponent(params.get('category_id')!);
+      this.level = params.get('level')!;
+    });
+
+    const data = await this.getQuestions();
+
+    this.questions = this.shuffleArray(data);
+
+    this.initializeQuestion();
+  }
+
   initializeQuestion() {
-    this.question = this.questions[this.i].question;
-    this.goodAnswer = this.questions[this.i].answer;
+    this.question = this.decodeHtml(this.questions[this.i].question);
+    this.questionType = this.questions[this.i].type;
+    this.goodAnswer = this.questions[this.i].correct_answer;
 
     // Insertion de la bonne réponse au hasard dans le tableau des questions
     this.answers = this.shuffleArray([
-      ...this.questions[this.i].badAnswers,
+      ...this.questions[this.i].incorrect_answers,
       this.goodAnswer,
     ]);
 
@@ -63,6 +93,7 @@ export class QuizzComponent implements OnInit {
   }
 
   checkAnswer() {
+    // Appliquer la logique des bonnes réponses multiples ici
     if (
       (<HTMLInputElement>document.querySelector('input[name="answer"]:checked'))
         .value == this.goodAnswer

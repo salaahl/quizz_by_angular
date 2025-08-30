@@ -6,9 +6,9 @@
   <span
     [class]="
       'text-sm text-center font-semibold px-3 py-1.5 rounded-full' +
-      (level === 'facile'
+      (level === 'easy'
         ? ' text-white bg-[hsl(160,100%,37%)]'
-        : level === 'moyen'
+        : level === 'medium'
           ? ' bg-yellow-600'
           : ' text-white bg-[indianred]')
     "
@@ -18,7 +18,14 @@
     >{{ i + 1 }} / {{ questions.length }}</span
   >
   <h1 class="text-2xl text-center uppercase text-bold mt-4">{{ question }}</h1>
-  <div id="answers" class="radio-toolbar mt-8 md:mt-24">
+  <span class="text-xs text-center font-semibold mt-8">{{
+    questionType === "boolean" ? "" : "Attention, plusieurs reponses possibles"
+  }}</span>
+  <div
+    *ngIf="questionType === 'boolean'"
+    id="answers"
+    class="radio-toolbar mt-8 md:mt-24"
+  >
     <ul class="flex flex-col items-center justify-center">
       <li class="mt-4" *ngFor="let answer of answers; let i = index">
         <input
@@ -26,10 +33,11 @@
           name="answer"
           [value]="answer"
           [id]="'answer-' + i"
+          class="input"
           hidden
         />
         <label
-          class="radio_label flex font-semibold rounded-full cursor-pointer"
+          class="label flex font-semibold rounded-full cursor-pointer"
           [for]="'answer-' + i"
         >
           {{ answer }}
@@ -37,7 +45,30 @@
       </li>
     </ul>
   </div>
-  <div class="ttext-center my-24">
+  <div
+    *ngIf="questionType === 'multiple'"
+    id="answers"
+    class="radio-toolbar mt-8 md:mt-24"
+  >
+    <ul class="flex flex-col items-center justify-center">
+      <li class="mt-4" *ngFor="let answer of answers; let i = index">
+        <input
+          type="checkbox"
+          name="answer"
+          [value]="'answer-' + i"
+          [id]="'answer-' + i"
+          class="input"
+        />
+        <label
+          class="label flex font-semibold rounded-full cursor-pointer"
+          [for]="'answer-' + i"
+        >
+          {{ answer }}
+        </label>
+      </li>
+    </ul>
+  </div>
+  <div class="text-center my-24">
     <button class="button-48 mx-auto" (click)="checkAnswer()">
       <span>Valider</span>
     </button>

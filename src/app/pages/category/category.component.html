@@ -5,7 +5,7 @@
 >
   <div class="header">
     <h1 class="text-3xl text-center uppercase text-bold mt-4">
-      {{ category }}
+      {{ category_name }}
     </h1>
     <p class="text-center mt-8">Sélectionnez un niveau de difficulté</p>
   </div>
@@ -18,11 +18,12 @@
           [value]="level"
           [checked]="level_selected === level || !level_selected"
           (change)="level_selected = level"
-          hidden
           [id]="'difficulty-' + level"
+          class="input"
+          hidden
         />
         <label
-          class="radio_label flex font-semibold capitalize rounded-full cursor-pointer"
+          class="label flex font-semibold capitalize rounded-full cursor-pointer"
           [for]="'difficulty-' + level"
         >
           {{ level }}
@@ -31,8 +32,10 @@
     </ul>
   </div>
   <div class="text-center my-8 md:my-24">
-    <button class="button-48 mx-auto" (click)="showQuizz()">
+    <a           
+    [routerLink]="'/categories/' + category_id + '/' + category_name + '/' + level_selected"
+ class="button-48 mx-auto">
       <span>Lancer le quizz</span>
-    </button>
+  </a>
   </div>
 </div>

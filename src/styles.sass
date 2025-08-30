@@ -20,23 +20,31 @@ h1, h2, h3, h4, h5, h6
   background-color: rgb(245 245 245)
   border-radius: 15px
 
-.radio-toolbar input[type='radio']
+.radio-toolbar .input
   display: none
 
-.radio-toolbar label
+.radio-toolbar .label
+  display: -webkit-box
   height: auto
   padding: 8px 14px
+  white-space: nowrap
+  text-overflow: ellipsis
   color: black
   background-color: white
+  overflow: hidden
+  -webkit-box-orient: vertical
+  -webkit-line-clamp: 1
   transition: all 0.25s
 
 .radio-toolbar ul li:first-of-type
   margin-top: 0
 
-.radio-toolbar label:hover 
+.radio-toolbar .label:hover 
   background-color: rgb(var(--accent-color-1), 1)
 
-.radio-toolbar input[type='radio']:checked + label
+.radio-toolbar .input:checked + label
+  color: white
+  border: 4px solid #ebebeb
   background-color: rgb(var(--accent-color-1), 1)
 
 /* Button 48 */
