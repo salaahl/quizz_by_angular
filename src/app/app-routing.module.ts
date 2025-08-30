@@ -5,9 +5,21 @@ import { CategoryComponent } from './pages/category/category.component';
 import { QuizzComponent } from './pages/quizz/quizz.component';
 
 const routes: Routes = [
-  { path: 'categories', component: CategoriesComponent },
-  { path: 'categories/:category', component: CategoryComponent },
-  { path: 'categories/:category/:level', component: QuizzComponent },
+  {
+    path: 'categories',
+    data: { animation: 'categories' },
+    component: CategoriesComponent,
+  },
+  {
+    path: 'categories/:category',
+    data: { animation: 'level' },
+    component: CategoryComponent,
+  },
+  {
+    path: 'categories/:category/:level',
+    data: { animation: 'quizz' },
+    component: QuizzComponent,
+  },
   { path: '', redirectTo: 'categories', pathMatch: 'full' }, // redirection vers /categories par défaut
 ];
 

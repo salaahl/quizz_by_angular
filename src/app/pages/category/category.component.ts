@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OnInit } from '@angular/core';
+import { categoriesBank } from 'src/app/questions/questionBank/questions';
+import * as animation from '../../animations/animations';
 
 @Component({
   selector: 'app-category',
@@ -9,6 +11,7 @@ import { OnInit } from '@angular/core';
   imports: [CommonModule],
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.sass'],
+  animations: [animation.fadeSlideInOut(), animation.fadeIn()],
 })
 export class CategoryComponent implements OnInit {
   // Récupérer également le nom "lisible" de la catégorie pour affichage
@@ -23,7 +26,9 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {
-      this.category = decodeURIComponent(params.get('category')!);
+      this.category =
+        categoriesBank.find((c) => c.technical_name === params.get('category'))
+          ?.name || decodeURIComponent(params.get('category')!);
     });
   }
 

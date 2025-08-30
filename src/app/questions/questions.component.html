@@ -1,4 +1,8 @@
-<div *ngIf="question !== undefined; else resultsBlock" id="question" [@fadeIn]="fadeAnimationState">
+<div
+  *ngIf="question !== undefined; else resultsBlock"
+  id="question"
+  [@fadeIn]="fadeAnimationState"
+>
   <div>
     Question {{ question.question_index + 1 }} sur {{ questions.length }}
   </div>
@@ -28,7 +32,7 @@
   >
     Valider
   </button>
-  <div *ngIf="question.done === true" id="answer-explanation" @fadeSlideIn>
+  <div *ngIf="question.done === true" id="answer-explanation" @fadeSlideInOut>
     <h3 *ngIf="answerStatus === true" id="answer-status" class="correct-answer">
       Bonne réponse
     </h3>

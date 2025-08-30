@@ -1,14 +1,17 @@
 <div
+  [@fadeSlideInOut]
   id="category-container"
-  class="min-h-full w-full flex flex-col justify-between items-center"
+  class="min-h-full w-fit flex flex-col justify-between md:justify-center items-center m-auto"
 >
   <div class="header">
-    <h1 class="text-center mt-4">{{ category }}</h1>
+    <h1 class="text-3xl text-center uppercase text-bold mt-4">
+      {{ category }}
+    </h1>
     <p class="text-center mt-8">Sélectionnez un niveau de difficulté</p>
   </div>
-  <div id="levels" class="radio-toolbar mt-8">
-    <ul class="flex flex-col flex-wrap items-center justify-center">
-      <li *ngFor="let level of difficulty" class="mt-2 md:mt-0 md:mr-2">
+  <div id="levels" class="radio-toolbar mt-8 md:mt-24">
+    <ul class="flex flex-col items-center justify-center">
+      <li *ngFor="let level of difficulty" class="mt-4">
         <input
           type="radio"
           name="difficulty"
@@ -19,7 +22,7 @@
           [id]="'difficulty-' + level"
         />
         <label
-          class="radio_label flex mr-1 text-sm font-semibold bg-gray-400 rounded-full cursor-pointer"
+          class="radio_label flex font-semibold capitalize rounded-full cursor-pointer"
           [for]="'difficulty-' + level"
         >
           {{ level }}
@@ -27,9 +30,9 @@
       </li>
     </ul>
   </div>
-  <div class="text-center my-8">
+  <div class="text-center my-8 md:my-24">
     <button class="button-48 mx-auto" (click)="showQuizz()">
-      Lancer le quizz
+      <span>Lancer le quizz</span>
     </button>
   </div>
 </div>

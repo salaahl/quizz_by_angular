@@ -1,16 +1,20 @@
-<div id="categories-container" class="min-h-full w-full flex flex-col justify-between items-center">
+<div
+  [@fadeSlideInOut]
+  id="categories-container"
+  class="min-h-full w-fit flex flex-col justify-between md:justify-center items-center m-auto"
+>
   <div class="header">
-    <h1 class="text-center mt-4">Lorem Ipsum</h1>
-    <p class="text-center mt-8">
+    <h1 class="text-3xl text-center uppercase text-bold mt-4">Lorem Ipsum</h1>
+    <p class="text-center mt-8 underline decoration-4 decoration-[deeppink]">
       Lorem ipsum dolor sit amet consectetur adipiscing elit suscipit euismod
       consectetur adipiscing elit suscipit euismod consectetur adipiscing elit
       suscipit euismod consectetur adipiscing elit suscipit euismod
     </p>
   </div>
-  <div id="categories" class="radio-toolbar mt-8">
-    <ul class="flex flex-col flex-wrap items-center justify-center">
+  <div id="categories" class="radio-toolbar mt-8 md:mt-24">
+    <ul class="flex flex-col md:flex-row flex-wrap items-center justify-center">
       <li
-        class="mt-2 md:mt-0 md:mr-2"
+        class="mt-2 md:mr-2"
         *ngFor="let category of categories; let i = index"
       >
         <input
@@ -25,7 +29,7 @@
           hidden
         />
         <label
-          class="radio_label flex text-sm font-semibold bg-gray-400 rounded-full cursor-pointer"
+          class="radio_label flex font-semibold rounded-full cursor-pointer"
           [for]="'category-' + i"
         >
           {{ category.name }}
@@ -33,9 +37,9 @@
       </li>
     </ul>
   </div>
-  <div class="text-center my-8">
+  <div class="text-center my-8 md:my-24">
     <button class="button-48 mx-auto" (click)="showCategory()">
-      Lancer le quizz
+      <span>Lancer le quizz</span>
     </button>
   </div>
 </div>

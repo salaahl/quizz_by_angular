@@ -38,7 +38,6 @@ export class QuizzComponent implements OnInit {
         .then((data) => {
           this.questions = data.quizzes;
           this.initializeQuestion();
-          console.log(this.questions[this.i]);
         });
     });
   }
@@ -73,6 +72,23 @@ export class QuizzComponent implements OnInit {
     } else {
       this.answerStatus = false;
     }
+
+    this.answers.forEach((answer) => {
+      if (answer == this.goodAnswer) {
+        (<HTMLElement>(
+          document.querySelector(
+            '#answer-' + this.answers.indexOf(answer) + '+ label',
+          )
+        )).style.backgroundColor = 'hsla(160, 100%, 37%, 1)';
+      } else {
+        (<HTMLElement>(
+          document.querySelector(
+            '#answer-' + this.answers.indexOf(answer) + '+ label',
+          )
+        )).style.backgroundColor = 'indianred';
+      }
+    });
+
     this.questionStatus = true;
   }
 

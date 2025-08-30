@@ -8,7 +8,7 @@ declare let myExtJs: any;
   selector: 'app-questions',
   templateUrl: './questions.component.html',
   styleUrls: ['./questions.component.sass'],
-  animations: [animation.fadeSlideIn(), animation.fadeIn()],
+  animations: [animation.fadeSlideInOut(), animation.fadeIn()],
 })
 export class QuestionsComponent {
   fadeAnimationState: 'default' | 'fadeIn' = 'fadeIn';

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { categoriesBank } from 'src/app/questions/questionBank/questions';
+import * as animation from '../../animations/animations';
 
 @Component({
   selector: 'app-categories',
@@ -9,6 +10,7 @@ import { categoriesBank } from 'src/app/questions/questionBank/questions';
   imports: [CommonModule],
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.sass'],
+  animations: [animation.fadeSlideInOut(), animation.fadeIn()],
 })
 export class CategoriesComponent {
   categories: any =
