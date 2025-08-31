@@ -3,13 +3,22 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import * as animation from '../../animations/animations';
 
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+  query,
+} from '@angular/animations';
+
 @Component({
   selector: 'app-quizz',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './quizz.component.html',
   styleUrls: ['./quizz.component.sass'],
-  animations: [animation.fadeSlideInOut(), animation.fadeIn()],
+  animations: [animation.rotateY()],
 })
 export class QuizzComponent implements OnInit {
   API_BASE_URL = 'https://opentdb.com/api.php?amount=10&';

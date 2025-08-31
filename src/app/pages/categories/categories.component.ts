@@ -10,7 +10,7 @@ import * as animation from '../../animations/animations';
   imports: [CommonModule, RouterModule],
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.sass'],
-  animations: [animation.fadeSlideInOut(), animation.fadeIn()],
+  animations: [animation.fadeSlideInOut()],
 })
 export class CategoriesComponent {
   categories: any =

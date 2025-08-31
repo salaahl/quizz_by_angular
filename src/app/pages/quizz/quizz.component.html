@@ -11,7 +11,10 @@
   >
     Mode {{ level }}
   </h3>
-  <div class="question max-w-3xl mt-8 p-8 text-white rounded-xl bg-[deeppink]">
+  <div
+    [@rotateY]="i"
+    class="question max-w-3xl mt-8 p-8 text-white rounded-xl bg-[deeppink]"
+  >
     <h4 class="text-xs text-center font-semibold uppercase">
       Question {{ i + 1 }} / {{ questions.length }}
     </h4>
@@ -27,10 +30,13 @@
     <div
       *ngIf="questionType === 'boolean'"
       id="answers"
-      class="radio-toolbar mt-8 md:mt-16"
+      class="radio-toolbar mt-8 md:mt-24"
     >
       <ul class="flex flex-col items-center justify-center">
-        <li class="mt-4" *ngFor="let answer of answers; let i = index">
+        <li
+          class="max-w-full mt-4"
+          *ngFor="let answer of answers; let i = index"
+        >
           <input
             type="radio"
             name="answer"
@@ -51,10 +57,13 @@
     <div
       *ngIf="questionType === 'multiple'"
       id="answers"
-      class="radio-toolbar mt-8 md:mt-16"
+      class="radio-toolbar mt-8 md:mt-24"
     >
       <ul class="flex flex-col items-center justify-center">
-        <li class="mt-4" *ngFor="let answer of answers; let i = index">
+        <li
+          class="max-w-full mt-4"
+          *ngFor="let answer of answers; let i = index"
+        >
           <input
             type="checkbox"
             name="answer"

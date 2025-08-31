@@ -10,7 +10,7 @@ import * as animation from '../../animations/animations';
   imports: [CommonModule, RouterModule],
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.sass'],
-  animations: [animation.fadeSlideInOut(), animation.fadeIn()],
+  animations: [animation.fadeSlideInOut()],
 })
 export class CategoryComponent implements OnInit {
   API_BASE_URL = 'https://opentdb.com/api.php?amount=10&';

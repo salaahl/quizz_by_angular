@@ -10,7 +10,7 @@ import { categoriesBank } from 'src/app/questions/questionBank/questions';
   imports: [CommonModule, RouterModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.sass'],
-  animations: [animation.fadeSlideInOut(), animation.fadeIn()],
+  animations: [animation.fadeSlideInOut()],
 })
 export class HomeComponent {
   categories!: any;

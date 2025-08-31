@@ -16,7 +16,7 @@ import { LoaderService } from './loader.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.sass'],
-  animations: [animation.fadeSlideInOut(), animation.fadeIn()],
+  animations: [animation.fadeSlideInOut()],
 })
 export class AppComponent {
   leaving = false;
