@@ -3,15 +3,23 @@
     <h2 class="app-icon">Q</h2>
   </header>
 
-  <div
-    [@fadeSlideInOut]="getRouterOutletState(outlet)"
-    class="app-main max-w-5xl"
-  >
-    <router-outlet #outlet="outlet"></router-outlet>
+  <div class="app-main flex flex-col justify-end max-w-5xl m-auto">
+    <!-- Loader affiché uniquement quand le service loader est actif -->
+    <ng-container *ngIf="loader.isLoading | async">
+      <div class="loader">
+        <h2 class="app-icon">Q</h2>
+      </div>
+    </ng-container>
 
-    <footer class="">
-      <span>Copyright &copy; Salaha Sokhona 2025</span>
-    </footer>
+    <!-- Routes -->
+    <div
+      *ngIf="routesVisible && !leaving"
+      [@fadeSlideInOut]="animationState$ | async"
+      class="router-outlet min-h-[90%] w-fit flex flex-col justify-center items-center m-auto"
+    >
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+
     <svg
       class="bg-circle"
       viewBox="0 0 100 100"
@@ -32,4 +40,8 @@
       <circle cx="0%" r="25%" stroke="none" stroke-width="2" fill="white" />
     </svg>
   </div>
+
+  <footer class="">
+    <span>Copyright &copy; Salaha Sokhona 2025</span>
+  </footer>
 </div>

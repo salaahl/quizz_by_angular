@@ -1,19 +1,16 @@
-<div
-  *ngIf="question !== undefined"
-  id="question-container"
-  class="min-h-full w-fit flex flex-col justify-between md:justify-center items-center m-auto"
->
-  <span
+<div *ngIf="question !== undefined" id="question-container">
+  <h3
     [class]="
-      'text-sm text-center font-semibold px-3 py-1.5 rounded-full' +
+      'w-fit m-auto text-sm text-center font-semibold px-3 py-1.5 rounded-full' +
       (level === 'easy'
         ? ' text-white bg-[hsl(160,100%,37%)]'
         : level === 'medium'
           ? ' bg-yellow-600'
           : ' text-white bg-[indianred]')
     "
-    >Mode {{ level }}</span
   >
+    Mode {{ level }}
+  </h3>
   <div class="question max-w-3xl mt-8 p-8 text-white rounded-xl bg-[deeppink]">
     <h4 class="text-xs text-center font-semibold uppercase">
       Question {{ i + 1 }} / {{ questions.length }}

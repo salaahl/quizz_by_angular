@@ -26,11 +26,6 @@ export function fadeIn(duration: number = milliseconds) {
 export function fadeSlideInOut(duration: number = milliseconds) {
   return trigger('fadeSlideInOut', [
     transition(':enter', [
-      query('*', [
-        style({
-          opacity: 0,
-        }),
-      ]),
       style({ opacity: 0, transform: 'translateY(50px)' }),
       animate(
         `${duration}ms ease-in-out`,
@@ -46,11 +41,6 @@ export function fadeSlideInOut(duration: number = milliseconds) {
       ]),
     ]),
     transition(':leave', [
-      query('*', [
-        style({
-          opacity: 1,
-        }),
-      ]),
       style({ opacity: 1, transform: 'translateY(0)' }),
       animate(
         `${duration}ms ease-in-out`,

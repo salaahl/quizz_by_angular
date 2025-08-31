@@ -8,22 +8,22 @@ import { QuizzComponent } from './pages/quizz/quizz.component';
 const routes: Routes = [
   {
     path: '',
-    data: { animation: 'fadeInOut' },
+    data: { animation: 'fadeSlideInOut' },
     component: HomeComponent,
   },
   {
     path: 'categories',
-    data: { animation: 'fadeInOut' },
+    data: { animation: 'fadeSlideInOut' },
     component: CategoriesComponent,
   },
   {
     path: 'categories/:category_id/:category_name',
-    data: { animation: 'fadeInOut' },
+    data: { animation: 'fadeSlideInOut' },
     component: CategoryComponent,
   },
   {
     path: 'categories/:category_id/:category_name/:level',
-    data: { animation: 'fadeInOut' },
+    data: { animation: 'fadeSlideInOut' },
     component: QuizzComponent,
   },
 ];
