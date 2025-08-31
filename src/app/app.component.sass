@@ -16,7 +16,9 @@
 
 header, .app-main, footer
   width: 100%
-  padding: 20px
+  padding: 10px
+  @include media-min(375px)
+    padding: 20px
 
 header
   height: 10%
@@ -36,3 +38,14 @@ footer
   display: flex
   justify-content: center
   align-items: center
+
+footer > span
+  padding: 10px 20px
+  text-wrap: nowrap
+  background-color: white
+  border-radius: 75px
+
+.bg-circle > *
+  cy: 150%
+  @include media-min(768px)
+    cy: 100%

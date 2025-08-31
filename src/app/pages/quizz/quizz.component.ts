@@ -81,13 +81,15 @@ export class QuizzComponent implements OnInit {
   initializeQuestion() {
     this.question = this.decodeHtml(this.questions[this.i].question);
     this.questionType = this.questions[this.i].type;
-    this.goodAnswer = this.questions[this.i].correct_answer;
+    this.goodAnswer = this.decodeHtml(this.questions[this.i].correct_answer);
+
+    this.answers = [];
+    this.questions[this.i].incorrect_answers.forEach((answer: string) => {
+      this.answers.push(this.decodeHtml(answer));
+    });
 
     // Insertion de la bonne réponse au hasard dans le tableau des questions
-    this.answers = this.shuffleArray([
-      ...this.questions[this.i].incorrect_answers,
-      this.goodAnswer,
-    ]);
+    this.answers = this.shuffleArray([...this.answers, this.goodAnswer]);
 
     this.questionStatus = false;
   }

@@ -4,7 +4,7 @@
   class="min-h-full w-fit flex flex-col justify-between md:justify-center items-center m-auto"
 >
   <div class="header">
-    <h1 class="text-3xl text-center uppercase text-bold mt-4">
+    <h1 class="text-3xl text-center uppercase font-bold mt-4">
       {{ category_name }}
     </h1>
     <p class="text-center mt-8">Sélectionnez un niveau de difficulté</p>
@@ -32,10 +32,18 @@
     </ul>
   </div>
   <div class="text-center my-8 md:my-24">
-    <a           
-    [routerLink]="'/categories/' + category_id + '/' + category_name + '/' + level_selected"
- class="button-48 mx-auto">
+    <a
+      [routerLink]="
+        '/categories/' +
+        category_id +
+        '/' +
+        category_name +
+        '/' +
+        level_selected
+      "
+      class="button-48 mx-auto"
+    >
       <span>Lancer le quizz</span>
-  </a>
+    </a>
   </div>
 </div>

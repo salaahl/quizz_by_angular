@@ -8,7 +8,14 @@ html, body
   height: 100%
   width: 100%
   margin: 0
-  overflow: auto
+  overflow-x: hidden
+  overflow-y: auto
+
+h1
+  width: fit-content
+  margin-left: auto
+  margin-right: auto
+  color: rgb(var(--accent-color-2), 1)
 
 h1, h2, h3, h4, h5, h6
   text-wrap-style: pretty
@@ -40,6 +47,7 @@ h1, h2, h3, h4, h5, h6
   margin-top: 0
 
 .radio-toolbar .label:hover 
+  color: white
   background-color: rgb(var(--accent-color-1), 1)
 
 .radio-toolbar .input:checked + label
@@ -50,10 +58,10 @@ h1, h2, h3, h4, h5, h6
 /* Button 48 */
 .button-48
     appearance: none
-    background-color: #FFFFFF
+    background-color: #343a40
     border: 4px solid whitesmoke
     box-sizing: border-box
-    color: #000000
+    color: white
     cursor: pointer
     display: inline-block
     font-family: Clarkson,Helvetica,sans-serif
@@ -74,11 +82,12 @@ h1, h2, h3, h4, h5, h6
     touch-action: manipulation
     vertical-align: baseline
     white-space: nowrap
+    border-radius: 9999px
 
 .button-48:before
     animation: opacityFallbackOut .5s step-end forwards
     backface-visibility: hidden
-    background-color: #EBEBEB
+    background-color: black
     clip-path: polygon(-1% 0, 0 0, -25% 100%, -1% 100%)
     content: ""
     height: 100%
@@ -88,6 +97,7 @@ h1, h2, h3, h4, h5, h6
     transform: translateZ(0)
     transition: clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1), -webkit-clip-path .5s cubic-bezier(.165, 0.84, 0.44, 1)
     width: 100%
+    border-radius: 9999px
 
 .button-48:hover:before
     animation: opacityFallbackIn 0s step-start forwards
