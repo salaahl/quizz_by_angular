@@ -7,7 +7,7 @@
       Sélectionnez un niveau de difficulté
     </p>
   </div>
-  <div id="levels" class="radio-toolbar mt-8 md:mt-24">
+  <div id="levels" class="radio-toolbar mt-8 md:mt-16">
     <ul class="flex flex-col items-center justify-center">
       <li *ngFor="let level of difficulty" class="mt-4">
         <input
@@ -29,7 +29,7 @@
       </li>
     </ul>
   </div>
-  <div class="text-center my-8 md:my-24">
+  <div class="text-center my-8 md:my-16">
     <a
       [routerLink]="
         '/categories/' +

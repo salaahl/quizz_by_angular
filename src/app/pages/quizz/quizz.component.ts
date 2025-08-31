@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { OnInit } from '@angular/core';
+import * as animation from '../../animations/animations';
 
 @Component({
   selector: 'app-quizz',
@@ -9,6 +9,7 @@ import { OnInit } from '@angular/core';
   imports: [CommonModule],
   templateUrl: './quizz.component.html',
   styleUrls: ['./quizz.component.sass'],
+  animations: [animation.fadeSlideInOut(), animation.fadeIn()],
 })
 export class QuizzComponent implements OnInit {
   API_BASE_URL = 'https://opentdb.com/api.php?amount=10&';
