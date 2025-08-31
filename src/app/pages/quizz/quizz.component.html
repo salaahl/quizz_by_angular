@@ -13,7 +13,14 @@
   </h3>
   <div
     [@rotateY]="i"
-    class="question max-w-3xl mt-8 p-8 text-white rounded-xl bg-[deeppink]"
+    [class]="
+      'question max-w-3xl mt-8 p-8 text-white rounded-xl transition-bg duration-300 ' +
+      (answerStatus === 'true'
+        ? 'bg-[hsl(160,100%,37%)]'
+        : answerStatus === 'false'
+          ? 'bg-[indianred]'
+          : 'bg-[deeppink]')
+    "
   >
     <h4 class="text-xs text-center font-semibold uppercase">
       Question {{ i + 1 }} / {{ questions.length }}
@@ -87,8 +94,10 @@
     </button>
   </div>
   <div *ngIf="questionStatus" class="question-result my-8">
-    <h3 *ngIf="answerStatus" class="text-center">Bravo ! Bonne réponse</h3>
-    <h3 *ngIf="!answerStatus" class="text-center">
+    <h3 *ngIf="answerStatus === 'true'" class="font-bold text-center">
+      Bravo ! Bonne réponse
+    </h3>
+    <h3 *ngIf="answerStatus === 'false'" class="font-bold text-center">
       Dommage ! Mauvaise réponse
     </h3>
     <div class="text-center mt-4">

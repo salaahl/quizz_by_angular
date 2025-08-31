@@ -18,14 +18,18 @@ html, body
   overflow-x: hidden
   overflow-y: auto
 
+h1, h2, h3, h4, h5, h6
+  text-wrap-style: pretty
+
 h1
   width: fit-content
   margin-left: auto
   margin-right: auto
   color: rgb(var(--accent-color-2), 1)
 
-h1, h2, h3, h4, h5, h6
-  text-wrap-style: pretty
+h1::first-letter
+  font-size: 48px
+  color: #b0c4b1
 
 /* Radio toolbar */
 .radio-toolbar

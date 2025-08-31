@@ -3,15 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import * as animation from '../../animations/animations';
 
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  query,
-} from '@angular/animations';
-
 @Component({
   selector: 'app-quizz',
   standalone: true,
@@ -34,7 +25,7 @@ export class QuizzComponent implements OnInit {
   goodAnswer: string = '';
 
   questionStatus: boolean = false;
-  answerStatus: boolean = false;
+  answerStatus: string | null = null;
 
   constructor(private route: ActivatedRoute) {}
 
@@ -102,6 +93,7 @@ export class QuizzComponent implements OnInit {
     this.answers = this.shuffleArray([...this.answers, this.goodAnswer]);
 
     this.questionStatus = false;
+    this.answerStatus = null;
   }
 
   checkAnswer() {
@@ -110,9 +102,9 @@ export class QuizzComponent implements OnInit {
       (<HTMLInputElement>document.querySelector('input[name="answer"]:checked'))
         .value == this.goodAnswer
     ) {
-      this.answerStatus = true;
+      this.answerStatus = 'true';
     } else {
-      this.answerStatus = false;
+      this.answerStatus = 'false';
     }
 
     this.answers.forEach((answer) => {

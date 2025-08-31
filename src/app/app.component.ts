@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import {
   RouterOutlet,
   Router,
@@ -8,7 +8,8 @@ import {
   NavigationCancel,
   NavigationError,
 } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import * as animation from './animations/animations';
 import { LoaderService } from './loader.service';
 
@@ -18,54 +19,84 @@ import { LoaderService } from './loader.service';
   styleUrls: ['./app.component.sass'],
   animations: [animation.fadeSlideInOut()],
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   leaving = false;
   routesVisible = true;
   animationState$ = new BehaviorSubject<string>('fadeInOut');
-  circlePositionY: any = window.innerWidth < 768 ? '100%' : '150%';
+  circlePositionY: string = window.innerWidth < 768 ? '100%' : '150%';
 
-  leaveAnimationDuration = 300;
-  loaderDuration = 1000;
+  private readonly LEAVE_ANIMATION_DURATION = 300;
+  private readonly LOADER_DURATION = 1000;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private cdr: ChangeDetectorRef,
     private router: Router,
     public loader: LoaderService,
   ) {
-    this.router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationStart) {
-        // Lancer la transition leave
-        this.leaving = true;
-      }
-
-      if (
-        event instanceof NavigationEnd ||
-        event instanceof NavigationCancel ||
-        event instanceof NavigationError
-      ) {
-        // Attendre que l'animation leave soit terminée avant d'afficher le loader
-        setTimeout(() => {
-          this.leaving = false;
-          this.routesVisible = false; // cacher l'ancienne route
-          this.loader.show();
-
-          // Puis cacher le loader après un délai et afficher la nouvelle route
-          setTimeout(() => {
-            this.loader.hide();
-            this.routesVisible = true;
-            const animationName =
-              this.router.routerState.root.firstChild?.snapshot.data[
-                'animation'
-              ] || 'fadeInOut';
-            this.animationState$.next(animationName);
-            this.cdr.detectChanges();
-          }, this.loaderDuration); // loaderDuration = durée minimale souhaitée du loader
-        }, this.leaveAnimationDuration); // leaveAnimationDuration = durée de la transition leave
-      }
-    });
+    this.initializeRouterEvents();
   }
 
-  prepareRoute(outlet: RouterOutlet) {
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private initializeRouterEvents(): void {
+    this.router.events
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((event: Event) => {
+        if (event instanceof NavigationStart) {
+          this.handleNavigationStart();
+        }
+
+        if (
+          event instanceof NavigationEnd ||
+          event instanceof NavigationCancel ||
+          event instanceof NavigationError
+        ) {
+          this.handleNavigationEnd();
+        }
+      });
+  }
+
+  private handleNavigationStart(): void {
+    // Immédiatement masquer les routes et activer leaving
+    this.routesVisible = false;
+    this.leaving = true;
+
+    // Forcer la détection des changements pour que la condition *ngIf s'applique immédiatement
+    this.cdr.detectChanges();
+  }
+
+  private handleNavigationEnd(): void {
+    // Attendre la fin de l'animation leave (si elle existe) puis afficher le loader
+    setTimeout(() => {
+      this.loader.show();
+
+      this.showNewRoute();
+    }, this.LEAVE_ANIMATION_DURATION);
+  }
+
+  private showNewRoute(): void {
+    // Masquer le loader et réinitialiser l'état après le délai souhaité
+    setTimeout(() => {
+      this.loader.hide();
+      this.leaving = false;
+      this.routesVisible = true;
+      this.animationState$.next(this.getAnimationName());
+      this.cdr.detectChanges();
+    }, this.LOADER_DURATION);
+  }
+
+  private getAnimationName(): string {
+    return (
+      this.router.routerState.root.firstChild?.snapshot.data?.['animation'] ||
+      'fadeInOut'
+    );
+  }
+
+  prepareRoute(outlet: RouterOutlet): string {
     return outlet?.activatedRouteData?.['animation'] || 'fadeSlideInOut';
   }
 }

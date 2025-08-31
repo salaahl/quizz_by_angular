@@ -34,7 +34,7 @@ export class HomeComponent {
 
       return window.innerWidth < 768
         ? data.trivia_categories.slice(0, 6)
-        : data.trivia_categories;
+        : data.trivia_categories.slice(0, 18);
     } catch (error) {
       console.error('Erreur lors de la récupération des catégories :', error);
     }
