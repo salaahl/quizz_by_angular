@@ -26,6 +26,11 @@ const routes: Routes = [
     data: { animation: 'fadeSlideInOut' },
     component: QuizzComponent,
   },
+  {
+    path: '**', // Route par défaut
+    redirectTo: '',
+    pathMatch: 'full',
+  },
 ];
 
 @NgModule({
