@@ -11,7 +11,7 @@ import {
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import * as animation from './animations/animations';
-import { LoaderService } from './loader.service';
+import { LoaderService } from './services/loader.service';
 
 @Component({
     selector: 'app-root',

@@ -21,7 +21,7 @@ interface DeepLLanguageDetectionResponse {
 })
 export class DeepLService {
   private apiUrl = 'https://api-free.deepl.com';
-  private authKey = '565ab08f-996f-40aa-8a7e-5781a760e755:fx';
+  private authKey = import.meta.env['NG_APP_DEEPL_AUTH_KEY'];
 
   constructor(private http: HttpClient) {}
 

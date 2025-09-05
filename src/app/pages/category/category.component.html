@@ -9,24 +9,26 @@
   </div>
   <div id="levels" class="radio-toolbar mt-8 md:mt-16">
     <ul class="flex flex-col items-center justify-center">
-      <li *ngFor="let level of difficulty" class="max-w-full mt-4">
-        <input
-          type="radio"
-          name="difficulty"
-          [value]="level"
-          [checked]="level_selected === level || !level_selected"
-          (change)="level_selected = level"
-          [id]="'difficulty-' + level"
-          class="input"
-          hidden
-        />
-        <label
-          class="label flex font-semibold capitalize rounded-full cursor-pointer"
-          [for]="'difficulty-' + level"
-        >
-          {{ level }}
-        </label>
-      </li>
+      @for (level of difficulty; track level) {
+        <li class="max-w-full mt-4">
+          <input
+            type="radio"
+            name="difficulty"
+            [value]="level"
+            [checked]="level_selected === level || !level_selected"
+            (change)="level_selected = level"
+            [id]="'difficulty-' + level"
+            class="input"
+            hidden
+            />
+          <label
+            class="label flex font-semibold capitalize rounded-full cursor-pointer"
+            [for]="'difficulty-' + level"
+            >
+            {{ level }}
+          </label>
+        </li>
+      }
     </ul>
   </div>
   <div class="text-center my-8 md:my-16">
@@ -40,7 +42,7 @@
         level_selected
       "
       class="button-48 mx-auto"
-    >
+      >
       <span>Lancer le quiz</span>
     </a>
   </div>

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute } from '@angular/router';
 import * as animation from '../../animations/animations';
 
 @Component({
     selector: 'app-quizz',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './quizz.component.html',
     styleUrls: ['./quizz.component.sass'],
     animations: [animation.rotateY()]

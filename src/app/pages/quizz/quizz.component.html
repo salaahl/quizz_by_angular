@@ -1,5 +1,6 @@
-<div *ngIf="question !== undefined" id="question-container">
-  <h3
+@if (question !== undefined) {
+  <div id="question-container">
+    <h3
     [class]="
       'w-fit m-auto text-sm text-center font-semibold px-3 py-1.5 rounded-full' +
       (level === 'easy'
@@ -8,11 +9,11 @@
           ? ' bg-yellow-600'
           : ' text-white bg-[indianred]')
     "
-  >
-    Mode {{ level }}
-  </h3>
-  <div
-    [@rotateY]="i"
+      >
+      Mode {{ level }}
+    </h3>
+    <div
+      [@rotateY]="i"
     [class]="
       'question max-w-3xl mt-8 p-8 text-white rounded-xl transition-bg duration-300 ' +
       (answerStatus === 'true'
@@ -21,89 +22,103 @@
           ? 'bg-[indianred]'
           : 'bg-[deeppink]')
     "
-  >
-    <h4 class="text-xs text-center font-semibold uppercase">
-      Question {{ i + 1 }} / {{ questions.length }}
-    </h4>
-    <h1 class="text-2xl text-center uppercase font-bold mt-4">
-      {{ question }}
-    </h1>
-    <h3
-      *ngIf="questionType !== 'boolean'"
-      class="text-xs text-center font-semibold mt-8"
-    >
-      Attention, plusieurs reponses possibles
-    </h3>
-    <div
-      *ngIf="questionType === 'boolean'"
-      id="answers"
-      class="radio-toolbar mt-8 md:mt-24"
-    >
-      <ul class="flex flex-col items-center justify-center">
-        <li
-          class="max-w-full mt-4"
-          *ngFor="let answer of answers; let i = index"
-        >
-          <input
-            type="radio"
-            name="answer"
-            [value]="answer"
-            [id]="'answer-' + i"
-            class="input"
-            hidden
-          />
-          <label
-            class="label flex font-semibold rounded-full cursor-pointer"
-            [for]="'answer-' + i"
+      >
+      <h4 class="text-xs text-center font-semibold uppercase">
+        Question {{ i + 1 }} / {{ questions.length }}
+      </h4>
+      <h1 class="text-2xl text-center uppercase font-bold mt-4">
+        {{ question }}
+      </h1>
+      @if (questionType !== 'boolean') {
+        <h3
+          class="text-xs text-center font-semibold mt-8"
           >
-            {{ answer }}
-          </label>
-        </li>
-      </ul>
-    </div>
-    <div
-      *ngIf="questionType === 'multiple'"
-      id="answers"
-      class="radio-toolbar mt-8 md:mt-24"
-    >
-      <ul class="flex flex-col items-center justify-center">
-        <li
-          class="max-w-full mt-4"
-          *ngFor="let answer of answers; let i = index"
-        >
-          <input
-            type="checkbox"
-            name="answer"
-            [value]="answer"
-            [id]="'answer-' + i"
-            class="input"
-          />
-          <label
-            class="label flex font-semibold rounded-full cursor-pointer"
-            [for]="'answer-' + i"
+          Attention, plusieurs reponses possibles
+        </h3>
+      }
+      @if (questionType === 'boolean') {
+        <div
+          id="answers"
+          class="radio-toolbar mt-8 md:mt-24"
           >
-            {{ answer }}
-          </label>
-        </li>
-      </ul>
+          <ul class="flex flex-col items-center justify-center">
+            @for (answer of answers; track answer; let i = $index) {
+              <li
+                class="max-w-full mt-4"
+                >
+                <input
+                  type="radio"
+                  name="answer"
+                  [value]="answer"
+                  [id]="'answer-' + i"
+                  class="input"
+                  hidden
+                  />
+                <label
+                  class="label flex font-semibold rounded-full cursor-pointer"
+                  [for]="'answer-' + i"
+                  >
+                  {{ answer }}
+                </label>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+      @if (questionType === 'multiple') {
+        <div
+          id="answers"
+          class="radio-toolbar mt-8 md:mt-24"
+          >
+          <ul class="flex flex-col items-center justify-center">
+            @for (answer of answers; track answer; let i = $index) {
+              <li
+                class="max-w-full mt-4"
+                >
+                <input
+                  type="checkbox"
+                  name="answer"
+                  [value]="answer"
+                  [id]="'answer-' + i"
+                  class="input"
+                  />
+                <label
+                  class="label flex font-semibold rounded-full cursor-pointer"
+                  [for]="'answer-' + i"
+                  >
+                  {{ answer }}
+                </label>
+              </li>
+            }
+          </ul>
+        </div>
+      }
     </div>
+    @if (!questionStatus) {
+      <div class="text-center my-8">
+        <button class="button-48 mx-auto" (click)="checkAnswer()">
+          <span>Valider</span>
+        </button>
+      </div>
+    }
+    @if (questionStatus) {
+      <div class="question-result my-8">
+        @if (answerStatus === 'true') {
+          <h3 class="font-bold text-center">
+            Bravo ! Bonne réponse
+          </h3>
+        }
+        @if (answerStatus === 'false') {
+          <h3 class="font-bold text-center">
+            Dommage ! Mauvaise réponse
+          </h3>
+        }
+        <div class="text-center mt-4">
+          <button class="button-48 mx-auto" (click)="nextQuestion()">
+            <span>Question suivante</span>
+          </button>
+        </div>
+      </div>
+    }
   </div>
-  <div *ngIf="!questionStatus" class="text-center my-8">
-    <button class="button-48 mx-auto" (click)="checkAnswer()">
-      <span>Valider</span>
-    </button>
-  </div>
-  <div *ngIf="questionStatus" class="question-result my-8">
-    <h3 *ngIf="answerStatus === 'true'" class="font-bold text-center">
-      Bravo ! Bonne réponse
-    </h3>
-    <h3 *ngIf="answerStatus === 'false'" class="font-bold text-center">
-      Dommage ! Mauvaise réponse
-    </h3>
-    <div class="text-center mt-4">
-      <button class="button-48 mx-auto" (click)="nextQuestion()">
-        <span>Question suivante</span>
-      </button>
-    </div>
-  </div>
-</div>
+}

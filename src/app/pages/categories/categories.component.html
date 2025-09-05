@@ -12,17 +12,18 @@
   </div>
   <div id="categories" class="radio-toolbar mt-8 md:mt-16">
     <ul class="flex flex-col md:flex-row flex-wrap items-center justify-center">
-      <li
-        class="max-w-full mt-2 md:mr-2"
-        *ngFor="let category of categories; let i = index"
-      >
-        <a
-          [routerLink]="'/categories/' + category.id + '/' + category.name"
-          class="label flex font-semibold rounded-full cursor-pointer"
-        >
-          {{ category.name }}
-        </a>
-      </li>
+      @for (category of categories; track category; let i = $index) {
+        <li
+          class="max-w-full mt-2 md:mr-2"
+          >
+          <a
+            [routerLink]="'/categories/' + category.id + '/' + category.name"
+            class="label flex font-semibold rounded-full cursor-pointer"
+            >
+            {{ category.name }}
+          </a>
+        </li>
+      }
     </ul>
   </div>
 </div>

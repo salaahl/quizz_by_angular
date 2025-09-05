@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { OnInit } from '@angular/core';
 import * as animation from '../../animations/animations';
 
 @Component({
     selector: 'app-category',
-    imports: [CommonModule, RouterModule],
+    imports: [RouterModule],
     templateUrl: './category.component.html',
     styleUrls: ['./category.component.sass'],
     animations: [animation.fadeSlideInOut()]

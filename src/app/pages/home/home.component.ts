@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { Router, RouterModule } from '@angular/router';
 import * as animation from '../../animations/animations';
 import { DeepLService } from '../../services/deepl.service';
 
 @Component({
     selector: 'app-home',
-    imports: [CommonModule, RouterModule],
+    imports: [RouterModule],
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.sass'],
     animations: [animation.fadeSlideInOut()]

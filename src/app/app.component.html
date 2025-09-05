@@ -5,20 +5,21 @@
 
   <div class="app-main flex flex-col justify-end max-w-5xl m-auto">
     <!-- Loader affiché uniquement quand le service loader est actif -->
-    <ng-container *ngIf="loader.isLoading | async">
+    @if (loader.isLoading | async) {
       <div class="loader">
         <h2 class="app-icon">Q</h2>
       </div>
-    </ng-container>
+    }
 
     <!-- Routes -->
-    <div
-      *ngIf="routesVisible && !leaving"
-      [@fadeSlideInOut]="animationState$ | async"
-      class="router-outlet min-h-[90%] w-fit flex flex-col justify-center items-center m-auto"
-    >
-      <router-outlet #outlet="outlet"></router-outlet>
-    </div>
+    @if (routesVisible && !leaving) {
+      <div
+        [@fadeSlideInOut]="animationState$ | async"
+        class="router-outlet min-h-[90%] w-fit flex flex-col justify-center items-center m-auto"
+        >
+        <router-outlet #outlet="outlet"></router-outlet>
+      </div>
+    }
 
     <svg
       class="bg-circle"
@@ -32,7 +33,7 @@
         background-color: white;
         z-index: -1;
       "
-    >
+      >
       <circle cx="0%" r="50%" stroke="none" stroke-width="2" fill="#edafb8" />
       <circle cx="0%" r="40%" stroke="none" stroke-width="2" fill="#f7e1d7" />
       <circle cx="0%" r="35%" stroke="none" stroke-width="2" fill="#dedbd2" />
@@ -49,6 +50,6 @@
       href="https://www.linkedin.com/in/salaha-sokhona/"
       class="font-bold text-sm"
       >&copy; Salaha Sokhona 2025</a
-    >
-  </footer>
-</div>
+      >
+    </footer>
+  </div>
