@@ -2,21 +2,21 @@ import { Component, OnInit } from '@angular/core';
 
 import { Router, RouterModule } from '@angular/router';
 import * as animation from '../../animations/animations';
-import { DeepLService } from '../../services/deepl.service';
+import { TranslateService } from '../../services/deepl.service';
 
 @Component({
-    selector: 'app-home',
-    imports: [RouterModule],
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.sass'],
-    animations: [animation.fadeSlideInOut()]
+  selector: 'app-home',
+  imports: [RouterModule],
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.sass'],
+  animations: [animation.fadeSlideInOut()],
 })
 export class HomeComponent implements OnInit {
   categories!: any;
 
   constructor(
     private router: Router,
-    private deepLService: DeepLService,
+    private translateService: TranslateService
   ) {}
 
   async ngOnInit() {
@@ -35,19 +35,19 @@ export class HomeComponent implements OnInit {
       const originalCategories = data.trivia_categories;
       console.log(originalCategories);
       const categoryNames = data.trivia_categories.map(
-        (categorie: any) => categorie.name,
+        (categorie: any) => categorie.name
       );
 
       let catString = categoryNames.join('|');
 
       // Traduction
-      this.deepLService.translateText(catString, 'FR').subscribe({
+      this.translateService.translate(catString, 'FR').subscribe({
         next: (result) => {
           // Le texte traduit est accessible dans result.translations[0].text
           console.log(result.translations[0].text);
           console.log(
             'Langue détectée:',
-            result.translations[0].detected_source_language,
+            result.translations[0].detected_source_language
           );
         },
         error: (error) => {
