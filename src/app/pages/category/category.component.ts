@@ -5,12 +5,11 @@ import { OnInit } from '@angular/core';
 import * as animation from '../../animations/animations';
 
 @Component({
-  selector: 'app-category',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.sass'],
-  animations: [animation.fadeSlideInOut()],
+    selector: 'app-category',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './category.component.html',
+    styleUrls: ['./category.component.sass'],
+    animations: [animation.fadeSlideInOut()]
 })
 export class CategoryComponent implements OnInit {
   API_BASE_URL = 'https://opentdb.com/api.php?amount=10&';

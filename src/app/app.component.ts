@@ -14,10 +14,11 @@ import * as animation from './animations/animations';
 import { LoaderService } from './loader.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass'],
-  animations: [animation.fadeSlideInOut()],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.sass'],
+    animations: [animation.fadeSlideInOut()],
+    standalone: false
 })
 export class AppComponent implements OnDestroy {
   leaving = false;

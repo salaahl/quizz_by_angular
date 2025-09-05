@@ -5,10 +5,11 @@ import * as animation from '../animations/animations';
 declare let myExtJs: any;
 
 @Component({
-  selector: 'app-questions',
-  templateUrl: './questions.component.html',
-  styleUrls: ['./questions.component.sass'],
-  animations: [animation.fadeSlideInOut()],
+    selector: 'app-questions',
+    templateUrl: './questions.component.html',
+    styleUrls: ['./questions.component.sass'],
+    animations: [animation.fadeSlideInOut()],
+    standalone: false
 })
 export class QuestionsComponent {
   fadeAnimationState: 'default' | 'fadeIn' = 'fadeIn';

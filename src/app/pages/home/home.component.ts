@@ -5,12 +5,11 @@ import * as animation from '../../animations/animations';
 import { DeepLService } from '../../services/deepl.service';
 
 @Component({
-  selector: 'app-home',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.sass'],
-  animations: [animation.fadeSlideInOut()],
+    selector: 'app-home',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.sass'],
+    animations: [animation.fadeSlideInOut()]
 })
 export class HomeComponent implements OnInit {
   categories!: any;

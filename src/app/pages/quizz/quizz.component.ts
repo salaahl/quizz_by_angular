@@ -4,12 +4,11 @@ import { ActivatedRoute } from '@angular/router';
 import * as animation from '../../animations/animations';
 
 @Component({
-  selector: 'app-quizz',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './quizz.component.html',
-  styleUrls: ['./quizz.component.sass'],
-  animations: [animation.rotateY()],
+    selector: 'app-quizz',
+    imports: [CommonModule],
+    templateUrl: './quizz.component.html',
+    styleUrls: ['./quizz.component.sass'],
+    animations: [animation.rotateY()]
 })
 export class QuizzComponent implements OnInit {
   API_BASE_URL = 'https://opentdb.com/api.php?amount=10&';

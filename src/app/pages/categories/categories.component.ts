@@ -5,12 +5,11 @@ import { categoriesBank } from 'src/app/questions/questionBank/questions';
 import * as animation from '../../animations/animations';
 
 @Component({
-  selector: 'app-categories',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.sass'],
-  animations: [animation.fadeSlideInOut()],
+    selector: 'app-categories',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './categories.component.html',
+    styleUrls: ['./categories.component.sass'],
+    animations: [animation.fadeSlideInOut()]
 })
 export class CategoriesComponent {
   categories: any =
