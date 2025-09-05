@@ -4,18 +4,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuestionsComponent } from './questions/questions.component';
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    QuestionsComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  declarations: [AppComponent, QuestionsComponent],
+  imports: [BrowserModule, BrowserAnimationsModule, AppRoutingModule],
+  providers: [provideHttpClient()],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
