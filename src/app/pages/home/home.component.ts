@@ -33,22 +33,20 @@ export class HomeComponent implements OnInit {
       const data = await response.json();
 
       const originalCategories = data.trivia_categories;
-      console.log(originalCategories);
-      const categoryNames = data.trivia_categories.map(
+      const categoryNames = originalCategories.map(
         (categorie: any) => categorie.name
       );
 
-      let catString = categoryNames.join('|');
+      let catString =
+        window.innerWidth < 768
+          ? categoryNames.slice(0, 6).join('|')
+          : categoryNames.slice(0, 18).join('|');
 
       // Traduction
       this.translateService.translate(catString, 'FR').subscribe({
         next: (result) => {
           // Le texte traduit est accessible dans result.translations[0].text
-          console.log(result.translations[0].text);
-          console.log(
-            'Langue détectée:',
-            result.translations[0].detected_source_language
-          );
+          catString = result.translations[0].text;
         },
         error: (error) => {
           console.error('Translation error:', error);
@@ -59,11 +57,9 @@ export class HomeComponent implements OnInit {
         category.name = catString.split('|')[index];
       });
 
-      console.log(originalCategories);
-
       return window.innerWidth < 768
-        ? data.trivia_categories.slice(0, 6)
-        : data.trivia_categories.slice(0, 18);
+        ? originalCategories.slice(0, 6)
+        : originalCategories.slice(0, 18);
     } catch (error) {
       console.error('Erreur lors de la récupération des catégories :', error);
       return [];
