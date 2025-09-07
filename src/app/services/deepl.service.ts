@@ -1,6 +1,4 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 interface DeepLResponse {
   translations: Array<{
@@ -11,14 +9,35 @@ interface DeepLResponse {
 
 @Injectable({ providedIn: 'root' })
 export class TranslateService {
-  // Point vers votre API Symfony en production
   private apiUrl = 'https://jokes-api-platform.onrender.com/translate';
 
-  constructor(private http: HttpClient) {}
-
-  translate(text: string, targetLang: string): Observable<DeepLResponse> {
-    // Le backend Symfony attend un body JSON avec text et target_lang
+  async translate(text: string, targetLang: string): Promise<DeepLResponse> {
     const body = { text, target_lang: targetLang };
-    return this.http.post<DeepLResponse>(this.apiUrl, body);
+
+    try {
+      const response = await fetch(this.apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Erreur HTTP ${response.status} : ${errorText}`);
+      }
+
+      const data: DeepLResponse = await response.json();
+
+      // Vérification de la structure des données
+      if (!data.translations || !data.translations.length) {
+        throw new Error('Réponse invalide du service de traduction');
+      }
+
+      return data;
+    } catch (error) {
+      console.error('Erreur pendant la traduction :', error);
+
+      throw error;
+    }
   }
 }

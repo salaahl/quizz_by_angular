@@ -34,7 +34,7 @@ export class CategoryComponent implements OnInit {
     );
 
     await this.getLevels();
-console.log(this.levels);
+
     this.difficulty = ['easy', 'medium', 'hard'].filter((item) =>
       this.levels.some((level: any) => level.difficulty === item),
     );
@@ -51,8 +51,6 @@ console.log(this.levels);
       }
 
       const data = await response.json();
-      console.log(data);
-
 
       this.levels = data.results;
     } catch (error) {

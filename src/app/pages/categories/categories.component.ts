@@ -1,29 +1,25 @@
 import { Component } from '@angular/core';
-
-import { Router, RouterModule } from '@angular/router';
-import { categoriesBank } from 'src/app/questions/questionBank/questions';
+import { RouterModule } from '@angular/router';
 import * as animation from '../../animations/animations';
+import { translatedCategories } from '../categories/categories/categories';
 
 @Component({
-    selector: 'app-categories',
-    imports: [RouterModule],
-    templateUrl: './categories.component.html',
-    styleUrls: ['./categories.component.sass'],
-    animations: [animation.fadeSlideInOut()]
+  selector: 'app-categories',
+  imports: [RouterModule],
+  templateUrl: './categories.component.html',
+  styleUrls: ['./categories.component.sass'],
+  animations: [animation.fadeSlideInOut()],
 })
 export class CategoriesComponent {
-  categories: any =
-    window.innerWidth < 768
-      ? categoriesBank.slice(0, 9)
-      : categoriesBank.slice(0, 18);
+  categories!: any;
 
-  category_selected: string = this.categories[0].technical_name;
+  async ngOnInit() {
+    this.categories = await this.getCategories();
 
-  constructor(private router: Router) {}
-
-  showCategory() {
-    // Redirige vers la page quizz avec la catégorie en paramètre
-    this.router.navigate(['categories/', this.category_selected]);
+    // Injection des catégories traduites
+    this.categories.forEach((category: any, index: number) => {
+      category.name = translatedCategories[category.id];
+    });
   }
 
   async getCategories() {
@@ -35,15 +31,9 @@ export class CategoriesComponent {
 
       const data = await response.json();
 
-      // Mettre la logique de traduction ici
-
       return data.trivia_categories;
     } catch (error) {
       console.error('Erreur lors de la récupération des catégories :', error);
     }
-  }
-
-  async ngOnInit() {
-    this.categories = await this.getCategories();
   }
 }

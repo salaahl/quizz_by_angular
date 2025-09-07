@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-
 import { ActivatedRoute } from '@angular/router';
 import * as animation from '../../animations/animations';
+import { TranslateService } from '../../services/deepl.service';
 
 @Component({
-    selector: 'app-quizz',
-    imports: [],
-    templateUrl: './quizz.component.html',
-    styleUrls: ['./quizz.component.sass'],
-    animations: [animation.rotateY()]
+  selector: 'app-quizz',
+  imports: [],
+  templateUrl: './quizz.component.html',
+  styleUrls: ['./quizz.component.sass'],
+  animations: [animation.rotateY()],
 })
 export class QuizzComponent implements OnInit {
   API_BASE_URL = 'https://opentdb.com/api.php?amount=10&';
@@ -26,7 +26,10 @@ export class QuizzComponent implements OnInit {
   questionStatus: boolean = false;
   answerStatus: string | null = null;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private translateService: TranslateService
+  ) {}
 
   async getQuestions() {
     try {
@@ -35,15 +38,13 @@ export class QuizzComponent implements OnInit {
           'category=' +
           this.category +
           '&difficulty=' +
-          this.level,
+          this.level
       );
       if (!response.ok) {
         throw new Error(`Erreur HTTP ! statut: ${response.status}`);
       }
 
       const data = await response.json();
-
-      // Mettre la logique de traduction ici ou dans le initializeQuestion
 
       return data.results;
     } catch (error) {
@@ -75,10 +76,14 @@ export class QuizzComponent implements OnInit {
 
     this.questions = this.shuffleArray(data);
 
-    this.initializeQuestion();
+    await this.initializeQuestion();
   }
 
-  initializeQuestion() {
+  async initializeQuestion() {
+    // Réinitialisation des différents statuts
+    this.questionStatus = false;
+    this.answerStatus = null;
+
     this.question = this.decodeHtml(this.questions[this.i].question);
     this.questionType = this.questions[this.i].type;
     this.goodAnswer = this.decodeHtml(this.questions[this.i].correct_answer);
@@ -88,11 +93,31 @@ export class QuizzComponent implements OnInit {
       this.answers.push(this.decodeHtml(answer));
     });
 
+    // Traduction du texte
+    try {
+      const data =
+        this.question +
+        '<SEP1>' +
+        this.goodAnswer +
+        '<SEP2>' +
+        this.answers.join('|');
+      const result = await this.translateService.translate(data, 'FR');
+
+      // Récupération du texte traduit et assignation
+      this.question = result.translations[0].text.split('<SEP1>')[0];
+      this.goodAnswer = result.translations[0].text
+        .split('<SEP1>')[1]
+        .split('<SEP2>')[0];
+      this.answers = result.translations[0].text
+        .split('<SEP1>')[1]
+        .split('<SEP2>')[1]
+        .split('|');
+    } catch (error) {
+      console.warn('Erreur lors de la traduction :', error);
+    }
+
     // Insertion de la bonne réponse au hasard dans le tableau des questions
     this.answers = this.shuffleArray([...this.answers, this.goodAnswer]);
-
-    this.questionStatus = false;
-    this.answerStatus = null;
   }
 
   checkAnswer() {
@@ -110,13 +135,13 @@ export class QuizzComponent implements OnInit {
       if (answer == this.goodAnswer) {
         (<HTMLElement>(
           document.querySelector(
-            '#answer-' + this.answers.indexOf(answer) + '+ label',
+            '#answer-' + this.answers.indexOf(answer) + '+ label'
           )
         )).style.backgroundColor = 'hsla(160, 100%, 37%, 1)';
       } else {
         (<HTMLElement>(
           document.querySelector(
-            '#answer-' + this.answers.indexOf(answer) + '+ label',
+            '#answer-' + this.answers.indexOf(answer) + '+ label'
           )
         )).style.backgroundColor = 'indianred';
       }
@@ -125,8 +150,8 @@ export class QuizzComponent implements OnInit {
     this.questionStatus = true;
   }
 
-  nextQuestion() {
+  async nextQuestion() {
     this.i++;
-    this.initializeQuestion();
+    await this.initializeQuestion();
   }
 }

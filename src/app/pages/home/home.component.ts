@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Router, RouterModule } from '@angular/router';
 import * as animation from '../../animations/animations';
-import { TranslateService } from '../../services/deepl.service';
+import { translatedCategories } from '../categories/categories/categories';
 
 @Component({
   selector: 'app-home',
@@ -14,10 +13,7 @@ import { TranslateService } from '../../services/deepl.service';
 export class HomeComponent implements OnInit {
   categories!: any;
 
-  constructor(
-    private router: Router,
-    private translateService: TranslateService
-  ) {}
+  constructor(private router: Router) {}
 
   async ngOnInit() {
     this.categories = await this.getCategories();
@@ -32,34 +28,17 @@ export class HomeComponent implements OnInit {
 
       const data = await response.json();
 
-      const originalCategories = data.trivia_categories;
-      const categoryNames = originalCategories.map(
-        (categorie: any) => categorie.name
-      );
-
-      let catString =
+      const categories =
         window.innerWidth < 768
-          ? categoryNames.slice(0, 6).join('|')
-          : categoryNames.slice(0, 18).join('|');
+          ? data.trivia_categories.slice(0, 6)
+          : data.trivia_categories.slice(0, 18);
 
-      // Traduction
-      this.translateService.translate(catString, 'FR').subscribe({
-        next: (result) => {
-          // Le texte traduit est accessible dans result.translations[0].text
-          catString = result.translations[0].text;
-        },
-        error: (error) => {
-          console.error('Translation error:', error);
-        },
+      categories.forEach((category: any, index: number) => {
+        // Injection des catégories traduites
+        category.name = translatedCategories[category.id];
       });
 
-      originalCategories.forEach((category: any, index: number) => {
-        category.name = catString.split('|')[index];
-      });
-
-      return window.innerWidth < 768
-        ? originalCategories.slice(0, 6)
-        : originalCategories.slice(0, 18);
+      return categories;
     } catch (error) {
       console.error('Erreur lors de la récupération des catégories :', error);
       return [];
