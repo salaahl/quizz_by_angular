@@ -25,6 +25,7 @@ export class QuizzComponent implements OnInit {
 
   questionStatus: boolean = false;
   answerStatus: string | null = null;
+  score: number = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -127,6 +128,7 @@ export class QuizzComponent implements OnInit {
         .value == this.goodAnswer
     ) {
       this.answerStatus = 'true';
+      this.score = this.score + 20 / this.questions.length;
     } else {
       this.answerStatus = 'false';
     }

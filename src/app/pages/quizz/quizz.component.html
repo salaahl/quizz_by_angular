@@ -1,124 +1,137 @@
 @if (question !== undefined) {
-  <div id="question-container">
-    <h3
+<div id="question-container">
+  <h3
     [class]="
       'w-fit m-auto text-sm text-center font-semibold px-3 py-1.5 rounded-full' +
       (level === 'easy'
         ? ' text-white bg-[hsl(160,100%,37%)]'
         : level === 'medium'
-          ? ' bg-yellow-600'
-          : ' text-white bg-[indianred]')
+        ? ' bg-yellow-600'
+        : ' text-white bg-[indianred]')
     "
-      >
-      Mode {{ level }}
-    </h3>
-    <div
-      [@rotateY]="i"
+  >
+    Mode {{ level }}
+  </h3>
+  <div
+    [@rotateY]="i"
     [class]="
       'question max-w-3xl mt-8 p-8 text-white rounded-xl transition-bg duration-300 ' +
       (answerStatus === 'true'
         ? 'bg-[hsl(160,100%,37%)]'
         : answerStatus === 'false'
-          ? 'bg-[indianred]'
-          : 'bg-[deeppink]')
+        ? 'bg-[indianred]'
+        : 'bg-[deeppink]')
     "
-      >
-      <h4 class="text-xs text-center font-semibold uppercase">
-        Question {{ i + 1 }} / {{ questions.length }}
-      </h4>
-      <h1 class="text-2xl text-center uppercase font-bold mt-4">
-        {{ question }}
-      </h1>
-      @if (questionType !== 'boolean') {
-        <h3
-          class="text-xs text-center font-semibold mt-8"
+  >
+    <h4 class="text-xs text-center font-semibold uppercase">
+      Question {{ i + 1 }} / {{ questions.length }}
+    </h4>
+    <h1 class="text-2xl text-center uppercase font-bold mt-4">
+      {{ question }}
+    </h1>
+    @if (questionType !== 'boolean') {
+    <h3 class="text-xs text-center font-semibold mt-8">
+      Attention, plusieurs reponses possibles
+    </h3>
+    } @if (questionType === 'boolean') {
+    <div id="answers" class="radio-toolbar mt-8 md:mt-24">
+      <ul class="flex flex-col items-center justify-center">
+        @for (answer of answers; track answer; let i = $index) {
+        <li class="max-w-full mt-4">
+          <input
+            type="radio"
+            name="answer"
+            [value]="answer"
+            [id]="'answer-' + i"
+            class="input"
+            hidden
+          />
+          <label
+            class="label flex font-semibold rounded-full cursor-pointer"
+            [for]="'answer-' + i"
           >
-          Attention, plusieurs reponses possibles
-        </h3>
-      }
-      @if (questionType === 'boolean') {
-        <div
-          id="answers"
-          class="radio-toolbar mt-8 md:mt-24"
-          >
-          <ul class="flex flex-col items-center justify-center">
-            @for (answer of answers; track answer; let i = $index) {
-              <li
-                class="max-w-full mt-4"
-                >
-                <input
-                  type="radio"
-                  name="answer"
-                  [value]="answer"
-                  [id]="'answer-' + i"
-                  class="input"
-                  hidden
-                  />
-                <label
-                  class="label flex font-semibold rounded-full cursor-pointer"
-                  [for]="'answer-' + i"
-                  >
-                  {{ answer }}
-                </label>
-              </li>
-            }
-          </ul>
-        </div>
-      }
-      @if (questionType === 'multiple') {
-        <div
-          id="answers"
-          class="radio-toolbar mt-8 md:mt-24"
-          >
-          <ul class="flex flex-col items-center justify-center">
-            @for (answer of answers; track answer; let i = $index) {
-              <li
-                class="max-w-full mt-4"
-                >
-                <input
-                  type="checkbox"
-                  name="answer"
-                  [value]="answer"
-                  [id]="'answer-' + i"
-                  class="input"
-                  />
-                <label
-                  class="label flex font-semibold rounded-full cursor-pointer"
-                  [for]="'answer-' + i"
-                  >
-                  {{ answer }}
-                </label>
-              </li>
-            }
-          </ul>
-        </div>
-      }
+            {{ answer }}
+          </label>
+        </li>
+        }
+      </ul>
     </div>
-    @if (!questionStatus) {
-      <div class="text-center my-8">
-        <button class="button-48 mx-auto" (click)="checkAnswer()">
-          <span>Valider</span>
-        </button>
-      </div>
-    }
-    @if (questionStatus) {
-      <div class="question-result my-8">
-        @if (answerStatus === 'true') {
-          <h3 class="font-bold text-center">
-            Bravo ! Bonne réponse
-          </h3>
+    } @if (questionType === 'multiple') {
+    <div id="answers" class="radio-toolbar mt-8 md:mt-24">
+      <ul class="flex flex-col items-center justify-center">
+        @for (answer of answers; track answer; let i = $index) {
+        <li class="max-w-full mt-4">
+          <input
+            type="checkbox"
+            name="answer"
+            [value]="answer"
+            [id]="'answer-' + i"
+            class="input"
+          />
+          <label
+            class="label flex font-semibold rounded-full cursor-pointer"
+            [for]="'answer-' + i"
+          >
+            {{ answer }}
+          </label>
+        </li>
         }
-        @if (answerStatus === 'false') {
-          <h3 class="font-bold text-center">
-            Dommage ! Mauvaise réponse
-          </h3>
-        }
-        <div class="text-center mt-4">
-          <button class="button-48 mx-auto" (click)="nextQuestion()">
-            <span>Question suivante</span>
-          </button>
-        </div>
-      </div>
+      </ul>
+    </div>
     }
   </div>
+  @if (!questionStatus) {
+  <div class="text-center my-8">
+    <button class="button-48 mx-auto" (click)="checkAnswer()">
+      <span>Valider</span>
+    </button>
+  </div>
+  } @if (questionStatus) {
+  <div class="question-result my-8">
+    @if (answerStatus === 'true') {
+    <h3 class="font-bold text-center">Bravo ! Bonne réponse</h3>
+    } @if (answerStatus === 'false') {
+    <h3 class="font-bold text-center">Dommage ! Mauvaise réponse</h3>
+    }
+    <div class="text-center mt-4">
+      <button class="button-48 mx-auto" (click)="nextQuestion()">
+        <span>Question suivante</span>
+      </button>
+    </div>
+  </div>
+  }
+</div>
+} @else {
+<div id="result-container" class="px-12 py-8 rounded-xl bg-[black]">
+  @if(score < 10) {
+  <h1 class="text-3xl text-center uppercase font-bold mt-4">
+    Vous avez obtenu la note de {{ score }} / 20.
+  </h1>
+  <h2 class="text-xl text-center text-white uppercase font-bold mt-4">
+    Vous ferez mieux la prochaine fois !
+  </h2>
+  } @else if (score >= 10 && score < 12) {
+  <h1 class="text-3xl text-center uppercase font-bold mt-4">
+    Vous avez obtenu la note de {{ score }} / 20. C'est pas mal !
+  </h1>
+  } @else if (score >= 12 && score < 16) {
+  <h1 class="text-3xl text-center uppercase font-bold mt-4">
+    Vous avez obtenu la note de {{ score }} / 20. Bravo !
+  </h1>
+  } @else if (score >= 16 && score < 20) {
+  <h1 class="text-3xl text-center uppercase font-bold mt-4">
+    Vous avez obtenu la note de {{ score }} / 20. Super !
+  </h1>
+  } @else {
+  <h1 class="text-3xl text-center uppercase font-bold mt-4">
+    Vous avez obtenu l'excellente note de {{ score }} / 20. Point faible : trop
+    fort !
+  </h1>
+  }
+  <div class="text-center mt-16 mb-8">
+    <a routerLink="/categories" class="button-48 mx-auto">
+      <span>Voir les categories</span>
+    </a>
+  </div>
+</div>
 }
