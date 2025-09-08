@@ -14,11 +14,11 @@ import * as animation from './animations/animations';
 import { LoaderService } from './services/loader.service';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.sass'],
-    animations: [animation.fadeSlideInOut()],
-    standalone: false
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.sass'],
+  animations: [animation.fadeSlideInOut()],
+  standalone: false,
 })
 export class AppComponent implements OnDestroy {
   leaving = false;
@@ -34,7 +34,7 @@ export class AppComponent implements OnDestroy {
   constructor(
     private cdr: ChangeDetectorRef,
     private router: Router,
-    public loader: LoaderService,
+    public loader: LoaderService
   ) {
     this.initializeRouterEvents();
   }
@@ -57,6 +57,7 @@ export class AppComponent implements OnDestroy {
           event instanceof NavigationCancel ||
           event instanceof NavigationError
         ) {
+          (<HTMLElement>document.querySelector('body')).scrollTo(0, 0);
           this.handleNavigationEnd();
         }
       });
@@ -94,7 +95,7 @@ export class AppComponent implements OnDestroy {
   private getAnimationName(): string {
     return (
       this.router.routerState.root.firstChild?.snapshot.data?.['animation'] ||
-      'fadeInOut'
+      'fadeSlideInOut'
     );
   }
 
