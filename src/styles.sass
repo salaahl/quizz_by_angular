@@ -51,16 +51,15 @@ h1::first-letter
 /* Radio toolbar */
 .radio-toolbar
   width: 100%
-  @include media-min(768px)
-    width: fit-content
   margin-left: auto
   margin-right: auto
   padding: 10% 5%
-  @include media-min(768px)
-    padding: 5%
   backdrop-filter: blur(10px)
   background: rgb(255 255 255 / 0.5)
   border-radius: 15px
+  @include media-min(768px)
+    width: fit-content
+    padding: 5%
 
 .radio-toolbar .input
   display: none
