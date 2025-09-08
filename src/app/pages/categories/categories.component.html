@@ -1,7 +1,7 @@
-<div [@fadeSlideInOut] id="categories-container">
+<div [@fadeSlideInOut] id="categories-container" class="page-container">
   <div class="header">
-    <h1 class="text-3xl text-center uppercase font-bold mt-4">Catégories</h1>
-    <p class="text-center mt-8 underline decoration-4 decoration-[deeppink]">
+    <h1 class="text-3xl text-center uppercase font-bold">Catégories</h1>
+    <p class="text-center mt-4 underline decoration-4 decoration-[deeppink]">
       Bienvenue dans notre bibliothèque de quiz ! Ici, vous pouvez parcourir
       toutes les catégories disponibles et choisir celle qui vous inspire.
     </p>
@@ -10,20 +10,20 @@
       vous êtes incollable !
     </p>
   </div>
-  <div id="categories" class="radio-toolbar mt-8 md:mt-16">
+  <div id="categories" class="radio-toolbar my-12">
     <ul class="flex flex-col md:flex-row flex-wrap items-center justify-center">
       @for (category of categories; track category; let i = $index) {
-        <li
-          class="max-w-full mt-2 md:mr-2"
-          >
-          <a
-            [routerLink]="'/categories/' + category.id + '/' + category.name"
-            class="label flex font-semibold rounded-full cursor-pointer"
-            >
-            {{ category.name }}
-          </a>
-        </li>
+      <li class="max-w-full mt-2 md:mr-2">
+        <a
+          [routerLink]="'/categories/' + category.id + '/' + category.name"
+          class="label flex font-semibold rounded-full cursor-pointer"
+        >
+          {{ category.name }}
+        </a>
+      </li>
       }
     </ul>
   </div>
+  <!-- Permet de centrer le contenu en association avec "justify-betweeen" -->
+  <div class="placeholder"></div>
 </div>

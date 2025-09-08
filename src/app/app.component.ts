@@ -24,6 +24,7 @@ export class AppComponent implements OnDestroy {
   leaving = false;
   routesVisible = true;
   animationState$ = new BehaviorSubject<string>('fadeInOut');
+  mobile: boolean = window.innerWidth < 768;
   circlePositionY: string = window.innerWidth < 768 ? '100%' : '150%';
 
   private readonly LEAVE_ANIMATION_DURATION = 300;

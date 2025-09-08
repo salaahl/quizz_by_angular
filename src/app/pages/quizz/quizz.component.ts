@@ -19,7 +19,6 @@ export class QuizzComponent implements OnInit {
 
   questions: any[] = [];
   question: string = '';
-  questionType!: 'boolean' | 'multiple';
   answers: string[] = [];
   goodAnswer: string = '';
 
@@ -81,13 +80,21 @@ export class QuizzComponent implements OnInit {
   }
 
   async initializeQuestion() {
+    // Fin du quizz
+    if (this.i >= this.questions.length) {
+      this.i = 0;
+      this.score = 0;
+      this.question = '';
+      return;
+    }
+
     // Réinitialisation des différents statuts
     this.questionStatus = false;
     this.answerStatus = null;
 
     this.question = this.decodeHtml(this.questions[this.i].question);
-    this.questionType = this.questions[this.i].type;
     this.goodAnswer = this.decodeHtml(this.questions[this.i].correct_answer);
+    console.log(this.questions[this.i]);
 
     this.answers = [];
     this.questions[this.i].incorrect_answers.forEach((answer: string) => {
@@ -122,11 +129,15 @@ export class QuizzComponent implements OnInit {
   }
 
   checkAnswer() {
-    // Appliquer la logique des bonnes réponses multiples ici
-    if (
-      (<HTMLInputElement>document.querySelector('input[name="answer"]:checked'))
-        .value == this.goodAnswer
-    ) {
+    const answer = (<HTMLInputElement>(
+      document.querySelector('input[name="answer"]:checked')
+    ))?.value;
+    console.log(answer);
+    if (!answer || answer == 'undefined' || answer == 'null') {
+      return alert('Veuillez sélectionner une réponse.');
+    }
+
+    if (answer == this.goodAnswer) {
       this.answerStatus = 'true';
       this.score = this.score + 20 / this.questions.length;
     } else {

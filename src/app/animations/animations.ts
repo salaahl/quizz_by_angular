@@ -17,12 +17,12 @@ export function rotateY(duration: number = milliseconds) {
     transition('* <=> *', [
       style({ transform: 'rotateY(0deg)', filter: 'opacity(1)' }),
       group([
-        animate(`350ms ${tEmphasis}`, style({ transform: 'rotateY(720deg)' })),
-        animate(`200ms 150ms ${tEmphasis}`, style({ filter: 'opacity(0)' })),
+        animate(`500ms ${tEmphasis}`, style({ transform: 'rotateY(1440deg)' })),
+        animate(`350ms 150ms ${tEmphasis}`, style({ filter: 'opacity(0)' })),
       ]),
       group([
-        animate(`700ms ${tEmphasis}`, style({ transform: 'rotateY(0deg)' })),
-        animate(`350ms ${tEmphasis}`, style({ filter: 'opacity(1)' })),
+        animate(`2500ms ${tEmphasis}`, style({ transform: 'rotateY(0deg)' })),
+        animate(`500ms ${tEmphasis}`, style({ filter: 'opacity(1)' })),
       ]),
     ]),
   ]);

@@ -3,22 +3,22 @@
     <h2 class="app-icon">Q</h2>
   </header>
 
-  <div class="app-main flex flex-col justify-end max-w-5xl m-auto">
+  <div class="app-main w-full max-w-5xl m-auto">
     <!-- Loader affiché uniquement quand le service loader est actif -->
     @if (loader.isLoading | async) {
-      <div class="loader">
-        <h2 class="app-icon">Q</h2>
-      </div>
+    <div class="loader">
+      <h2 class="app-icon">Q</h2>
+    </div>
     }
 
     <!-- Routes -->
     @if (routesVisible && !leaving) {
-      <div
-        [@fadeSlideInOut]="animationState$ | async"
-        class="router-outlet min-h-[90%] w-fit flex flex-col justify-center items-center m-auto"
-        >
-        <router-outlet #outlet="outlet"></router-outlet>
-      </div>
+    <div
+      [@fadeSlideInOut]="animationState$ | async"
+      class="router-outlet min-h-[90%] w-full"
+    >
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
     }
 
     <svg
@@ -33,12 +33,47 @@
         background-color: white;
         z-index: -1;
       "
-      >
+    >
+      @if(mobile) {
+      <line
+        x1="0"
+        y1="65"
+        x2="100"
+        y2="65"
+        stroke="#edafb8"
+        stroke-width="10"
+      />
+      <line
+        x1="0"
+        y1="55"
+        x2="100"
+        y2="55"
+        stroke="#f7e1d7"
+        stroke-width="10"
+      />
+      <line
+        x1="0"
+        y1="45"
+        x2="100"
+        y2="45"
+        stroke="#dedbd2"
+        stroke-width="10"
+      />
+      <line
+        x1="0"
+        y1="35"
+        x2="100"
+        y2="35"
+        stroke="#b0c4b1"
+        stroke-width="10"
+      />
+      } @else {
       <circle cx="0%" r="50%" stroke="none" stroke-width="2" fill="#edafb8" />
       <circle cx="0%" r="40%" stroke="none" stroke-width="2" fill="#f7e1d7" />
       <circle cx="0%" r="35%" stroke="none" stroke-width="2" fill="#dedbd2" />
       <circle cx="0%" r="30%" stroke="none" stroke-width="2" fill="#b0c4b1" />
       <circle cx="0%" r="25%" stroke="none" stroke-width="2" fill="white" />
+      }
     </svg>
   </div>
 
@@ -50,6 +85,6 @@
       href="https://www.linkedin.com/in/salaha-sokhona/"
       class="font-bold text-sm"
       >&copy; Salaha Sokhona 2025</a
-      >
-    </footer>
-  </div>
+    >
+  </footer>
+</div>

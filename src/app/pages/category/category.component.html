@@ -1,13 +1,13 @@
-<div [@fadeSlideInOut] id="category-container">
+<div [@fadeSlideInOut] id="category-container" class="page-container">
   <div class="header">
-    <h1 class="text-3xl text-center uppercase font-bold mt-4">
+    <h1 class="text-3xl text-center uppercase font-bold">
       {{ category_name }}
     </h1>
-    <p class="text-center mt-8 underline decoration-4 decoration-[deeppink]">
+    <p class="text-center mt-4 underline decoration-4 decoration-[deeppink]">
       Sélectionnez un niveau de difficulté
     </p>
   </div>
-  <div id="levels" class="radio-toolbar mt-8 md:mt-16">
+  <div id="levels" class="radio-toolbar my-6 md:my-8">
     <ul class="flex flex-col items-center justify-center">
       @for (level of difficulty; track level) {
       <li class="max-w-full mt-4">
@@ -37,7 +37,7 @@
       }
     </ul>
   </div>
-  <div class="text-center my-8 md:my-16">
+  <div class="text-center mb-6">
     <a
       [routerLink]="
         '/categories/' +

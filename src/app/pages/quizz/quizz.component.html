@@ -1,8 +1,8 @@
-@if (question !== undefined) {
-<div id="question-container">
+@if (question) {
+<div id="question-container" class="page-container">
   <h3
     [class]="
-      'w-fit m-auto text-sm text-center font-semibold px-3 py-1.5 rounded-full' +
+      'w-fit mx-auto text-sm text-center font-semibold px-3 py-1.5 rounded-full' +
       (level === 'easy'
         ? ' text-white bg-[hsl(160,100%,37%)]'
         : level === 'medium'
@@ -10,12 +10,15 @@
         : ' text-white bg-[indianred]')
     "
   >
-    Mode {{ level }}
+    Mode
+    {{
+      level === "easy" ? "facile" : level === "medium" ? "moyen" : "difficile"
+    }}
   </h3>
   <div
     [@rotateY]="i"
     [class]="
-      'question max-w-3xl mt-8 p-8 text-white rounded-xl transition-bg duration-300 ' +
+      'question max-w-3xl my-6 mx-auto md:my-8 p-8 text-white rounded-xl transition-bg duration-300 ' +
       (answerStatus === 'true'
         ? 'bg-[hsl(160,100%,37%)]'
         : answerStatus === 'false'
@@ -26,15 +29,10 @@
     <h4 class="text-xs text-center font-semibold uppercase">
       Question {{ i + 1 }} / {{ questions.length }}
     </h4>
-    <h1 class="text-2xl text-center uppercase font-bold mt-4">
+    <h1 class="text-xl md:text-2xl text-center uppercase font-bold">
       {{ question }}
     </h1>
-    @if (questionType !== 'boolean') {
-    <h3 class="text-xs text-center font-semibold mt-8">
-      Attention, plusieurs reponses possibles
-    </h3>
-    } @if (questionType === 'boolean') {
-    <div id="answers" class="radio-toolbar mt-8 md:mt-24">
+    <div id="answers" class="radio-toolbar mt-8">
       <ul class="flex flex-col items-center justify-center">
         @for (answer of answers; track answer; let i = $index) {
         <li class="max-w-full mt-4">
@@ -56,38 +54,15 @@
         }
       </ul>
     </div>
-    } @if (questionType === 'multiple') {
-    <div id="answers" class="radio-toolbar mt-8 md:mt-24">
-      <ul class="flex flex-col items-center justify-center">
-        @for (answer of answers; track answer; let i = $index) {
-        <li class="max-w-full mt-4">
-          <input
-            type="checkbox"
-            name="answer"
-            [value]="answer"
-            [id]="'answer-' + i"
-            class="input"
-          />
-          <label
-            class="label flex font-semibold rounded-full cursor-pointer"
-            [for]="'answer-' + i"
-          >
-            {{ answer }}
-          </label>
-        </li>
-        }
-      </ul>
-    </div>
-    }
   </div>
   @if (!questionStatus) {
-  <div class="text-center my-8">
+  <div class="text-center mb-6">
     <button class="button-48 mx-auto" (click)="checkAnswer()">
       <span>Valider</span>
     </button>
   </div>
   } @if (questionStatus) {
-  <div class="question-result my-8">
+  <div class="question-result mb-6">
     @if (answerStatus === 'true') {
     <h3 class="font-bold text-center">Bravo ! Bonne réponse</h3>
     } @if (answerStatus === 'false') {
@@ -101,8 +76,8 @@
   </div>
   }
 </div>
-} @else {
-<div id="result-container" class="px-12 py-8 rounded-xl bg-[black]">
+} @else if (!question && score) {
+<div id="result-container" class="p-6 sm:px-12 sm:py-8 rounded-xl bg-[black]">
   @if(score < 10) {
   <h1 class="text-3xl text-center uppercase font-bold mt-4">
     Vous avez obtenu la note de {{ score }} / 20.
