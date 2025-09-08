@@ -15,23 +15,14 @@ let tEmphasis =
 export function rotateY(duration: number = milliseconds) {
   return trigger('rotateY', [
     transition('* <=> *', [
-      style({ transform: 'rotateY(0deg)', filter: 'blur(0px)' }),
+      style({ transform: 'rotateY(0deg)', filter: 'opacity(1)' }),
       group([
-        animate(
-          `200ms ${tEmphasis}`,
-          style({ transform: 'rotateY(720deg)' }),
-        ),
-        animate(`200ms ${tEmphasis}`, style({ filter: 'blur(2px)' })),
+        animate(`350ms ${tEmphasis}`, style({ transform: 'rotateY(720deg)' })),
+        animate(`200ms 150ms ${tEmphasis}`, style({ filter: 'opacity(0)' })),
       ]),
       group([
-        animate(
-          `200ms ${tEmphasis}`,
-          style({ transform: 'rotateY(0deg)' }),
-        ),
-        animate(
-          `200ms 100ms ${tEmphasis}`,
-          style({ filter: 'blur(0px)' }),
-        ),
+        animate(`700ms ${tEmphasis}`, style({ transform: 'rotateY(0deg)' })),
+        animate(`350ms ${tEmphasis}`, style({ filter: 'opacity(1)' })),
       ]),
     ]),
   ]);
@@ -43,14 +34,14 @@ export function fadeSlideInOut(duration: number = milliseconds) {
       style({ opacity: 0, transform: 'translateY(50px)' }),
       animate(
         `${duration}ms ease-in-out`,
-        style({ opacity: 1, transform: 'translateY(0)' }),
+        style({ opacity: 1, transform: 'translateY(0)' })
       ),
       query('*', [
         animate(
           `${duration}ms ease-in-out`,
           style({
             opacity: 1,
-          }),
+          })
         ),
       ]),
     ]),
@@ -58,14 +49,14 @@ export function fadeSlideInOut(duration: number = milliseconds) {
       style({ opacity: 1, transform: 'translateY(0)' }),
       animate(
         `${duration}ms ease-in-out`,
-        style({ opacity: 0, transform: 'translateY(50px)' }),
+        style({ opacity: 0, transform: 'translateY(50px)' })
       ),
       query('*', [
         animate(
           `${duration}ms ease-in-out`,
           style({
             opacity: 0,
-          }),
+          })
         ),
       ]),
     ]),
