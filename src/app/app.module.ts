@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { QuestionsComponent } from './questions/questions.component';
+import { QuestionsComponent } from './pages/archives/questions.component';
 import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({

@@ -8,7 +8,7 @@ import { TranslateService } from '../../services/deepl.service';
   imports: [],
   templateUrl: './quizz.component.html',
   styleUrls: ['./quizz.component.sass'],
-  animations: [animation.rotateY()],
+  animations: [animation.animateQuestionCard()],
 })
 export class QuizzComponent implements OnInit {
   API_BASE_URL = 'https://opentdb.com/api.php?amount=10&';
@@ -94,7 +94,6 @@ export class QuizzComponent implements OnInit {
 
     this.question = this.decodeHtml(this.questions[this.i].question);
     this.goodAnswer = this.decodeHtml(this.questions[this.i].correct_answer);
-    console.log(this.questions[this.i]);
 
     this.answers = [];
     this.questions[this.i].incorrect_answers.forEach((answer: string) => {
@@ -109,6 +108,7 @@ export class QuizzComponent implements OnInit {
         this.goodAnswer +
         '<SEP2>' +
         this.answers.join('|');
+
       const result = await this.translateService.translate(data, 'FR');
 
       // Récupération du texte traduit et assignation
@@ -121,7 +121,7 @@ export class QuizzComponent implements OnInit {
         .split('<SEP2>')[1]
         .split('|');
     } catch (error) {
-      console.warn('Erreur lors de la traduction :', error);
+      console.error('Erreur lors de la traduction :', error);
     }
 
     // Insertion de la bonne réponse au hasard dans le tableau des questions
@@ -132,7 +132,7 @@ export class QuizzComponent implements OnInit {
     const answer = (<HTMLInputElement>(
       document.querySelector('input[name="answer"]:checked')
     ))?.value;
-    console.log(answer);
+
     if (!answer || answer == 'undefined' || answer == 'null') {
       return alert('Veuillez sélectionner une réponse.');
     }

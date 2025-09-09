@@ -16,9 +16,9 @@
     }}
   </h3>
   <div
-    [@rotateY]="i"
+    [@animateQuestionCard]="i"
     [class]="
-      'question max-w-3xl my-6 mx-auto md:my-8 p-8 text-white rounded-xl transition-bg duration-300 ' +
+      'question relative max-w-3xl my-6 mx-auto md:my-8 p-8 text-white rounded-xl transition-bg duration-300 ' +
       (answerStatus === 'true'
         ? 'bg-[hsl(160,100%,37%)]'
         : answerStatus === 'false'
@@ -26,6 +26,7 @@
         : 'bg-[deeppink]')
     "
   >
+    <div class="card-after absolute top-0 left-0 bg-[deeppink] rounded-xl"></div>
     <h4 class="text-xs text-center font-semibold uppercase">
       Question {{ i + 1 }} / {{ questions.length }}
     </h4>
