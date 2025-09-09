@@ -13,15 +13,16 @@ let milliseconds = 300;
 let tEmphasis =
   'linear(0 0%, 0 1.8%, 0.01 3.6%, 0.03 6.35%, 0.07 9.1%, 0.13 11.4%, 0.19 13.4%, 0.27 15%, 0.34 16.1%, 0.54 18.35%, 0.66 20.6%, 0.72 22.4%, 0.77 24.6%, 0.81 27.3%, 0.85 30.4%, 0.88 35.1%, 0.92 40.6%, 0.94 47.2%, 0.96 55%, 0.98 64%, 0.99 74.4%, 1 86.4%, 1 100%)';
 
-export function animateQuestionCard(duration: number = milliseconds) {
-  return trigger('animateQuestionCard', [
+export function questionCard(duration: number = milliseconds) {
+  return trigger('questionCard', [
     transition('* <=> *', [
       // Permet d'animer les différentes parties de la carte en même temps
       group([
-        // Part 1 - card-after
+        //
         query(
           '.card-after',
           [
+            // Ce style n'est appliqué que sur la durée de l'animation
             style({
               height: '100%',
               width: '100%',
@@ -29,21 +30,28 @@ export function animateQuestionCard(duration: number = milliseconds) {
               opacity: 0,
             }),
             animate(`50ms ${tEmphasis}`, style({ opacity: 1 })),
-            animate(`650ms 1350ms ${tEmphasis}`, style({ opacity: 0 })),
+            animate(`650ms 1750ms ${tEmphasis}`, style({ opacity: 0 })),
           ],
           { optional: true }
         ),
 
-        // Part 2 - rotation de la carte et gestion de l'ombre
-        style({
-          boxShadow: '-18px 20px 0px black',
-        }),
+        //
         animate(
-          `350ms ${tEmphasis}`,
+          `150ms ${tEmphasis}`,
           style({ boxShadow: '0px 0px 0px black' })
         ),
+
+        /*
+         * Trouver un moyen d'activer cette animation en fonction de la taille de l'ecran 
         animate(
-          `1000ms ${tEmphasis}`,
+          `350ms 100ms ${tEmphasis}`,
+          style({ height: '50%', width: '50%' })
+        ),
+        */
+
+        //
+        animate(
+          `1000ms 150ms ${tEmphasis}`,
           keyframes([
             style({ transform: 'rotate(0deg)', offset: 0 }),
             style({ transform: 'rotate(3deg)', offset: 0.1 }),
@@ -58,8 +66,18 @@ export function animateQuestionCard(duration: number = milliseconds) {
             style({ transform: 'rotate(0deg)', offset: 1 }),
           ])
         ),
+
+        /*
+         * Trouver un moyen d'activer cette animation en fonction de la taille de l'ecran 
         animate(
-          `500ms 2000ms ${tEmphasis}`,
+          `650ms 1500ms ${tEmphasis}`,
+          style({ height: '100%', width: '100%' })
+        ),
+        */
+
+        //
+        animate(
+          `500ms 2400ms ${tEmphasis}`,
           style({ boxShadow: '-18px 20px 0px black' })
         ),
       ]),

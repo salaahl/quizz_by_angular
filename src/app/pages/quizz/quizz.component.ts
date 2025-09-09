@@ -8,7 +8,7 @@ import { TranslateService } from '../../services/deepl.service';
   imports: [],
   templateUrl: './quizz.component.html',
   styleUrls: ['./quizz.component.sass'],
-  animations: [animation.animateQuestionCard()],
+  animations: [animation.questionCard()],
 })
 export class QuizzComponent implements OnInit {
   API_BASE_URL = 'https://opentdb.com/api.php?amount=10&';
