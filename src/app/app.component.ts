@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { Location } from '@angular/common';
 import {
   RouterOutlet,
   Router,
@@ -34,9 +35,18 @@ export class AppComponent implements OnDestroy {
   constructor(
     private cdr: ChangeDetectorRef,
     private router: Router,
-    public loader: LoaderService
+    public loader: LoaderService,
+    private location: Location
   ) {
     this.initializeRouterEvents();
+  }
+
+  get isRoot(): boolean {
+    return this.location.path() === '';
+  }
+
+  goBack(): void {
+    this.location.back();
   }
 
   ngOnDestroy(): void {
