@@ -5,11 +5,11 @@ import { OnInit } from '@angular/core';
 import * as animation from '../../animations/animations';
 
 @Component({
-    selector: 'app-category',
-    imports: [RouterModule],
-    templateUrl: './category.component.html',
-    styleUrls: ['./category.component.sass'],
-    animations: [animation.fadeSlideInOut()]
+  selector: 'app-category',
+  imports: [RouterModule],
+  templateUrl: './category.component.html',
+  styleUrls: ['./category.component.sass'],
+  animations: [animation.fadeSlideInOut()],
 })
 export class CategoryComponent implements OnInit {
   API_BASE_URL = 'https://opentdb.com/api.php?amount=10&';
@@ -22,29 +22,26 @@ export class CategoryComponent implements OnInit {
   difficulty!: string[];
   level_selected!: string;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-  ) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   async ngOnInit() {
     this.category_id = this.route.snapshot.params['category_id'];
     this.category_name = decodeURIComponent(
-      this.route.snapshot.params['category_name'],
+      this.route.snapshot.params['category_name']
     );
 
-    await this.getLevels();
+    this.levels = await this.getLevels();
 
     this.difficulty = ['easy', 'medium', 'hard'].filter((item) =>
-      this.levels.some((level: any) => level.difficulty === item),
+      this.levels.some((level: any) => level.difficulty === item)
     );
     this.level_selected = this.difficulty[0];
   }
 
-  async getLevels() {
+  async getLevels(maxRetries = 2, attempt = 1): Promise<any[]> {
     try {
       const response = await fetch(
-        this.API_BASE_URL + 'category=' + this.category_id,
+        this.API_BASE_URL + 'category=' + this.category_id
       );
       if (!response.ok) {
         throw new Error(`Erreur HTTP ! statut: ${response.status}`);
@@ -52,9 +49,20 @@ export class CategoryComponent implements OnInit {
 
       const data = await response.json();
 
-      this.levels = data.results;
+      return data.results;
     } catch (error) {
-      console.error('Erreur lors de la récupération des questions :', error);
+      console.error(
+        `Erreur lors de la récupération des niveaux de difficulté (tentative ${attempt}) :`,
+        error
+      );
+
+      if (attempt < maxRetries) {
+        // Attendre trois secondes avant de réessayer
+        await new Promise((resolve) => setTimeout(resolve, 3000 * attempt));
+        return this.getLevels(maxRetries, attempt + 1);
+      } else {
+        throw error; // abandon après x tentatives
+      }
     }
   }
 }

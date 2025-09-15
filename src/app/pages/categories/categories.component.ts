@@ -22,7 +22,7 @@ export class CategoriesComponent {
     });
   }
 
-  async getCategories() {
+  async getCategories(maxRetries = 2, attempt = 1): Promise<any[]> {
     try {
       const response = await fetch('https://opentdb.com/api_category.php');
       if (!response.ok) {
@@ -33,7 +33,18 @@ export class CategoriesComponent {
 
       return data.trivia_categories;
     } catch (error) {
-      console.error('Erreur lors de la récupération des catégories :', error);
+      console.error(
+        `Erreur lors de la récupération des catégories (tentative ${attempt}) :`,
+        error
+      );
+
+      if (attempt < maxRetries) {
+        // Attendre trois secondes avant de réessayer
+        await new Promise((resolve) => setTimeout(resolve, 3000 * attempt));
+        return this.getCategories(maxRetries, attempt + 1);
+      } else {
+        throw error; // abandon après x tentatives
+      }
     }
   }
 }

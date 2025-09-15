@@ -31,24 +31,31 @@ export class QuizzComponent implements OnInit {
     private translateService: TranslateService
   ) {}
 
-  async getQuestions() {
+  async getQuestions(maxRetries = 2, attempt = 1): Promise<any[]> {
     try {
       const response = await fetch(
-        this.API_BASE_URL +
-          'category=' +
-          this.category +
-          '&difficulty=' +
-          this.level
+        `${this.API_BASE_URL}category=${this.category}&difficulty=${this.level}`
       );
+
       if (!response.ok) {
         throw new Error(`Erreur HTTP ! statut: ${response.status}`);
       }
 
       const data = await response.json();
-
       return data.results;
     } catch (error) {
-      console.error('Erreur lors de la récupération des questions :', error);
+      console.error(
+        `Erreur lors de la récupération des questions (tentative ${attempt}) :`,
+        error
+      );
+
+      if (attempt < maxRetries) {
+        // Attendre trois secondes avant de réessayer
+        await new Promise((resolve) => setTimeout(resolve, 3000 * attempt));
+        return this.getQuestions(maxRetries, attempt + 1);
+      } else {
+        throw error; // abandon après x tentatives
+      }
     }
   }
 
@@ -156,7 +163,7 @@ export class QuizzComponent implements OnInit {
           document.querySelector(
             '#answer-' + this.answers.indexOf(answer) + '+ label'
           )
-        )).style.backgroundColor = 'indianred';
+        )).style.backgroundColor = 'red';
       }
     });
 
