@@ -79,6 +79,10 @@ export class QuizzComponent implements OnInit {
       this.level = params.get('level')!;
     });
 
+    // (Ré)initialisation des variables
+    this.i = 0;
+    this.score = 0;
+
     const data = await this.getQuestions();
 
     this.questions = this.shuffleArray(data);
@@ -87,17 +91,14 @@ export class QuizzComponent implements OnInit {
   }
 
   async initializeQuestion() {
-    // Fin du quizz
-    if (this.i >= this.questions.length) {
-      this.i = 0;
-      this.score = 0;
-      this.question = '';
-      return;
-    }
-
     // Réinitialisation des différents statuts
     this.questionStatus = false;
     this.answerStatus = null;
+
+    // Fin du quizz
+    if (this.i >= this.questions.length) {
+      return;
+    }
 
     this.question = this.decodeHtml(this.questions[this.i].question);
     this.goodAnswer = this.decodeHtml(this.questions[this.i].correct_answer);

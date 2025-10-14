@@ -26,7 +26,7 @@ export function questionCard(duration: number = milliseconds) {
             style({
               height: '100%',
               width: '100%',
-              zIndex: 1,
+              zIndex: 2,
               opacity: 0,
             }),
             animate(`50ms ${tEmphasis}`, style({ opacity: 1 })),
