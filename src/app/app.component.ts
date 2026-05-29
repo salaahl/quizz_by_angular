@@ -11,6 +11,7 @@ import {
 } from '@angular/router';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
 import * as animation from './animations/animations';
 import { LoaderService } from './services/loader.service';
 
@@ -36,7 +37,8 @@ export class AppComponent implements OnDestroy {
     private cdr: ChangeDetectorRef,
     private router: Router,
     public loader: LoaderService,
-    private location: Location
+    private location: Location,
+    private http: HttpClient,
   ) {
     this.initializeRouterEvents();
   }
@@ -47,6 +49,25 @@ export class AppComponent implements OnDestroy {
 
   goBack(): void {
     this.location.back();
+  }
+
+  private wakeApi(): void {
+    console.log("Tentative de réveil de l'API...");
+
+    this.http
+      .get('https://jokes-api-platform.onrender.com/', { responseType: 'text' })
+      .subscribe({
+        next: () => {
+          console.log('Backend opérationnel !');
+        },
+        error: (err) => {
+          console.log("Réveil de l'API toujours en cours...", err);
+        },
+      });
+  }
+
+  ngOnInit(): void {
+    this.wakeApi();
   }
 
   ngOnDestroy(): void {
